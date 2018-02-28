@@ -129,7 +129,7 @@ export default class Renderer extends React.Component {
             route.nodes.forEach(node => {
               if (name === `${node}.stl`) {
                 color = route.color;
-                scale = 2;
+                scale = 1;
               }
             });
           });
