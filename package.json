@@ -12,8 +12,11 @@
     "start:web": "http-server -p 3000",
     "test": "NODE_ENV=test jest",
     "compile": "cd server && mvn compile && cd -",
+    "compilewin": "cd server && mvn compile && cd.. ",
     "start:server": "cd server && mvn exec:java -Dexec.mainClass='com.nasa.App' && cd -",
-    "compile:start:server": "yarn compile && yarn start:server"
+    "startwin:server": "cd server && mvn exec:java -\"Dexec.mainClass\"=\"com.nasa.App\" && cd.. ",
+    "compile:start:server": "yarn compile && yarn start:server",
+    "compilewin:start:server": "yarn compilewin && yarn startwin:server"
   },
   "repository": {
     "type": "git",
