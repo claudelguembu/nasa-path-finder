@@ -102,10 +102,22 @@ public class App extends NanoHTTPD {
       } else {
         System.out.println("Route " + (i + 1));
         System.out.println("---------------------------------");
+        Node nodeLast = null;
+        double distance = 0;
         for (Node node : nodes) {
           String nodeId = node.getNodeId();
           nodeIds.add(nodeId);
-          System.out.println(nodeId);
+          
+          try {
+              if (nodeLast != null) {
+                distance = node.node_distance_formula(node, nodeLast);
+                distance = (double) Math.round(distance * 100) / 100;
+              }
+          }catch(Exception ex){
+          }
+         
+          System.out.println(nodeId + " (Distance: " + distance + " in.)");
+          nodeLast = node;
         }
         System.out.println("---------------------------------");
       }
