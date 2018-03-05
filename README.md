@@ -44,10 +44,10 @@ Install Maven (Apache Maven Project) <https://maven.apache.org/>
 
 #### Configuration
 1. Environment Variables: Add or Update Windows Environment Paths to include the following...   
-- JAVA_HOME - Set to Java 8 JDK installation folder  
-- M2_HOME - Set to location of Maven installation folder  
-- MAVEN_HOME - Set to location of Maven installation folder  
-- Path - Include new path record "%M2_HOME%\bin"  
+   - JAVA_HOME - Set to Java 8 JDK installation folder  
+   - M2_HOME - Set to location of Maven installation folder  
+   - MAVEN_HOME - Set to location of Maven installation folder  
+   - Path - Include new path record "%M2_HOME%\bin"  
 
 2. Source Paths  
 Update path references in ```server/src/main/java/com/nasa/CreateNodes.java ``` to reflect resource paths.  
@@ -72,6 +72,6 @@ NASA Path Finder now supports both Linux and Windows execution, the commands to 
 3. Navigate to <http://localhost:3000> or <http://127.0.0.1:3000>
 
 ## Development Structure
-API code can be found in ```src/utils/```.  
-UI and React components can be found in ```src/components/```.  
-Core UI functionality can be found in ```server/src/main/java/com/nasa/```.  
+API code can be found in ```/src/utils/```.  
+UI and React components can be found in ```/src/components/```.  
+Core UI functionality can be found in ```/server/src/main/java/com/nasa/```.  
