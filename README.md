@@ -41,6 +41,8 @@ Install Node.js <https://nodejs.org/en/>
 Install Yarn <https://yarnpkg.com/en/docs/install>  
 Install/Update Java 8 <https://www.java.com/en/download/>  
 Install Maven (Apache Maven Project) <https://maven.apache.org/>  
+Install Python <https://www.python.org/downloads/>  
+Install Visual Studio <https://www.visualstudio.com/downloads/> (Free community version available)  
 
 #### Configuration
 1. Environment Variables: Add or Update Windows Environment Paths to include the following...   
