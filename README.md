@@ -1,5 +1,5 @@
-## Description
-Find the most efficient path of handrails on the exterior of the ISS for navigating from Point A to Point B.  Using React.js, a 3D Model
+## Project Overview
+Find the most efficient path of handrails along the exterior of the ISS when navigating from Point A to Point B.  Using React.js, a 3D Model
 representation of the ISS is used to highlight designed path.  Intermediate points, hazards, and astronaut wingspan should be taken into 
 consideration when calculating the optimal path(s).
 
@@ -13,7 +13,28 @@ Site: <https://lovetostrike.github.io/nasa-path-finder/>
 
 Repository: <https://github.com/lovetostrike/nasa-path-finder>  
 
-## Dependencies and Installation
+## Dependencies
+
+#### Front-End
+Jest: 		Test Execution  
+Node.js: 	Package Management  
+React.js: 	UI Rendering Library  
+Three.js: 	3D Rendering  
+Webpack:	Module Management  
+Yarn:		Package Management  
+
+#### Back-End
+AJAX: 		Asynchronous Algorithm Display  
+Java:		Software Platform  
+
+#### Supplemental Tools
+CircleCI: 	Continuous Integration  
+Docker: 	Web Building and Packaging  
+Eletron: 	Build Management  
+GitHub:		Code Repository  
+
+## Installation and Configuration
+
 
 
 ## Execution
