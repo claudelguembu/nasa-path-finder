@@ -1,9 +1,39 @@
-[![CircleCI](https://circleci.com/gh/lovetostrike/nasa-path-finder.svg?style=svg)](https://circleci.com/gh/lovetostrike/nasa-path-finder)
+## Description
+Find the most efficient path of handrails on the exterior of the ISS for navigating from Point A to Point B.  Using React.js, a 3D Model
+representation of the ISS is used to highlight designed path.  Intermediate points, hazards, and astronaut wingspan should be taken into 
+consideration when calculating the optimal path(s).
 
-## Demo
-Demo is available at  <https://lovetostrike.github.io/nasa-path-finder/demo.html>.
+#### Phase 1 (Fall 2017)
+
+Repository: <https://github.com/lovetostrike/nasa-path-finder>
+Demo: <https://lovetostrike.github.io/nasa-path-finder/demo.html>
+Site: <https://lovetostrike.github.io/nasa-path-finder/>
+
+#### Phase 2 (Fall 2018)
+
+Repository: <https://github.com/lovetostrike/nasa-path-finder>
+
+## Dependencies and Installation
+
+
+## Execution
+
+
+#### Linux
+
+
+#### Windows
+
 
 ## Development
+
+
+#### Structure
+
+
+
+
+
 
 Install yarn if you don't have it, <https://yarnpkg.com/lang/en/docs/install/#linux-tab>.
 
@@ -75,10 +105,3 @@ Save and restart the container.
   You can learn more at <https://facebook.github.io/react/tutorial/tutorial.html>
 * API code lives in ```src/utils```.
 
-## Continuous Delivery
-
-There are both OS and web builds available. Web build is just a static html/js/css and OS builds use electron for different distributions.
-
-Builds are executed on every merge at <https://circleci.com/gh/lovetostrike/nasa-path-finder/> and on successful build,
-docker image is built at <https://hub.docker.com/r/lovetostrike/nasa-path-finder/>.
-The latest web build is hosted on the demo page.
