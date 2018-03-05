@@ -10,7 +10,7 @@ Repository: <https://github.com/lovetostrike/nasa-path-finder>
 Demo: <https://lovetostrike.github.io/nasa-path-finder/demo.html>  
 Site: <https://lovetostrike.github.io/nasa-path-finder/>  
 
-#### Phase 2 (Fall 2018)
+#### Phase 2 (Spring 2018)
 Phase 2 Repository README.md adds Windows installation and development instructions.  
 
 Repository: <https://github.com/xpaddict/nasa-path-finder>  
