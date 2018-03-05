@@ -5,13 +5,13 @@ consideration when calculating the optimal path(s).
 
 #### Phase 1 (Fall 2017)
 
-Repository: <https://github.com/lovetostrike/nasa-path-finder>
-Demo: <https://lovetostrike.github.io/nasa-path-finder/demo.html>
-Site: <https://lovetostrike.github.io/nasa-path-finder/>
+Repository: <https://github.com/lovetostrike/nasa-path-finder>  
+Demo: <https://lovetostrike.github.io/nasa-path-finder/demo.html>  
+Site: <https://lovetostrike.github.io/nasa-path-finder/>  
 
 #### Phase 2 (Fall 2018)
 
-Repository: <https://github.com/lovetostrike/nasa-path-finder>
+Repository: <https://github.com/lovetostrike/nasa-path-finder>  
 
 ## Dependencies and Installation
 
