@@ -38,17 +38,16 @@ GitHub:		Code Repository
 
 #### Dependency Installation
 Install Node.js <https://nodejs.org/en/>  
-Install Yarn <https://yarnpkg.com/en/docs/install> 
+Install Yarn <https://yarnpkg.com/en/docs/install>  
 Install/Update Java 8 <https://www.java.com/en/download/>  
 Install Maven (Apache Maven Project) <https://maven.apache.org/>  
 
 #### Configuration
-1. Environment Variables  
-Add or Update Windows Environment Paths to include:  
-* JAVA_HOME : Set to Java 8 JDK installation folder  
-* M2_HOME : Set to location of Maven installation folder  
-* MAVEN_HOME : Set to location of Maven installation folder  
-* Path : Include new path record "%M2_HOME%\bin"  
+1. Environment Variables: Add or Update Windows Environment Paths to include the following...   
+* JAVA_HOME - Set to Java 8 JDK installation folder  
+* M2_HOME - Set to location of Maven installation folder  
+* MAVEN_HOME - Set to location of Maven installation folder  
+* Path - Include new path record "%M2_HOME%\bin"  
 
 2. Source Paths  
 Update path references in ```server/src/main/java/com/nasa/CreateNodes.java ``` to reflect resource paths.  
@@ -60,91 +59,19 @@ Using command line, download all yarn dependencies by navigating to the root of 
 This step may take several minutes.
 
 ## Execution
-
+NASA Path Finder now supports both Linux and Windows execution, the commands to compile and start the application are slightly different
 
 #### Linux
-
+1. In first command line window, navigate to root of the project directory and execute: ```yarn start```  
+2. In a second command line window, navigate to root of the project directory and execute: ```yarn compile:start:server```  
+3. Navigate to <http://localhost:3000> or <http://127.0.0.1:3000>
 
 #### Windows
-
+1. In first command line window, navigate to root of the project directory and execute: ```yarn start```  
+2. In a second command line window, navigate to root of the project directory and execute: ```yarn compilewin:start:server```  
+3. Navigate to <http://localhost:3000> or <http://127.0.0.1:3000>
 
 ## Development
 
 
 #### Structure
-
-
-
-
-
-
-Install yarn if you don't have it, <https://yarnpkg.com/lang/en/docs/install/#linux-tab>.
-
-Install java 8 & maven for your platform.
-
-#### Frontend
-Install yarn dependencies if you haven't,
-```sh
-yarn
-```
-
-Start dev frontend server
-```sh
-yarn start
-```
-
-#### Backend
-
-* Prior to building for the backend, ensure file paths within CreateNodes.java
-point to the correct locations for the source files.
-* CreateNodes.java lives in ```server/src/main/java/com/nasa/```.
-
-In another terminal, start dev backend server, (you need to run this every code change since it's Java). We can improve it to watch the files changes and use hot swap.
-
-To build, ```yarn compile```
-
-To run, ```yarn start:server```
-
-To do both, ```yarn compile:start:server```
-
-Go to <http://localhost:3000> to see the app.
-
-## Production Deployment
-
-#### Web build
-To build for web
-```
-yarn build
-yarn start:web & yarn start:server
-```
-and you get the static files under public which can be deployed on any server.
-
-#### Docker build
-There's a docker image with a web server if you want the app to work out-of-the-box and skip any setup.
-
-For linux and mac,
-Install docker for your box and
-```
-docker run -p 8080:8080 -p 3000:3000 lovetostrike/nasa-path-finder
-```
-Now it will be available at <http://localhost:3000>.
-
-For windows, install docker https://docs.docker.com/toolbox/toolbox_install_windows/.
-Open up kitematic.
-Search for nasa-path-finder and download it.
-In the settings, it should look something like this:
-
-In the preview window, clicking popup button will launch the app in the browser.
-![Port Config](https://github.com/lovetostrike/nasa-path-finder/blob/master/Capture.PNG).
-Make sure both docker & published ip has 8080 port open.
-Save and restart the container.
-
-## Test
-```yarn test```
-
-## Structure
-
-* UI Components are React components and live in ```src/components```.
-  You can learn more at <https://facebook.github.io/react/tutorial/tutorial.html>
-* API code lives in ```src/utils```.
-
