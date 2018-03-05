@@ -51,7 +51,7 @@ Install Maven (Apache Maven Project) <https://maven.apache.org/>
 
 2. Source Paths  
 Update path references in ```server/src/main/java/com/nasa/CreateNodes.java ``` to reflect resource paths.  
-If installed to C:\ this path would be: C:\nasa-path-finder\server\src\main\resources\  
+If installed to ```C:\``` this path would be: ```C:\nasa-path-finder\server\src\main\resources\```  
 
 3. Yarn Dependencies  
 Using command line, download all yarn dependencies by navigating to the root of the project executing:  
