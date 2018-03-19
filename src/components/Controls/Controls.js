@@ -222,14 +222,13 @@ export default class Controls extends React.Component {
             </div>
             <div className='wingspan-control'>
               Wingspan: {wingspan} ft
-              <Slider value={wingspan.toFixed(2)}
+              <Slider value={wingspan}
                 onChange={onWingspanChange}
-                min={4.0}
-                max={7.0}
-                steps={.1}
+                min={4}
+                max={7}
                 marks={{
-                  4.0: '4.0 ft',
-                  7.0: '7.0 ft'
+                  4: '4 ft',
+                  7: '7 ft'
                 }}
               />
             </div>
