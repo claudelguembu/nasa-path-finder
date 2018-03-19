@@ -45,6 +45,14 @@ export default class Renderer extends React.Component {
   }
 
   componentDidMount() {
+	const {
+		// -- set background and lighting effect values here --
+		scene_bg_color = '#0a2044', //navy
+		hemisphere_sky_color = '#eff6f7', //light blue
+		hemisphere_ground_color = '#eff6f7', //light blue
+		hemisphere_intensity = .7,
+	} = this.props;
+	
     if (!Detector.webgl) {
       Detector.addGetWebGLMessage();
     }
@@ -52,13 +60,15 @@ export default class Renderer extends React.Component {
     this.camera.position.set(0, 0, 3);
     this.cameraTarget = new THREE.Vector3(0, 0, 0);
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color('black');
+
+    this.scene.background = new THREE.Color(scene_bg_color);
 
     // mouse controls to rotate/zoom the model
     new OrbitControls(this.camera);
     // Lights
-    this.scene.add(new THREE.HemisphereLight('grey', 'grey'));
-    this.addShadowedLight(1, 1, 1, 0xffffff, 1.35);
+    this.scene.add(new THREE.HemisphereLight(hemisphere_sky_color, hemisphere_ground_color, hemisphere_intensity));
+    // addShadowedLight parameters (x, y, z, color, intensity)
+    this.addShadowedLight(1, 1, 1, 0xffffff, .8);
     this.addShadowedLight(0.5, 1, -1, 0xffffff, 1);
     // this.renderer
     this.renderer = new THREE.WebGLRenderer({antialias: true});
@@ -70,6 +80,7 @@ export default class Renderer extends React.Component {
     this.renderer.shadowMap.renderReverseSided = false;
     this.container.appendChild(this.renderer.domElement);
     this.stats = new Stats();
+    
     this.container.appendChild(this.stats.domElement);
     window.addEventListener('resize', this.handleWindowResize, false);
     // dom events for meshes
@@ -91,6 +102,11 @@ export default class Renderer extends React.Component {
 
   processFiles() {
     const {
+      // -- set hand-rail color values here --
+      hr_color = '#3f5056', //blue-gray
+      hr_start_color = '#28a009', // green //
+      hr_end_color = '#ff0022', //red
+      
       stationFile,
       handrailFiles,
       strFiles,
@@ -113,19 +129,20 @@ export default class Renderer extends React.Component {
       this.scene.add(mesh);
       this.camera.lookAt(mesh);
       this.stationModelIsDirty = false;
-    }
+    } 
+
     if (handrailFiles && Object.keys(handrailFiles).length > 0 && strFiles && strFiles.length > 0 ) {
       Object.values(this.handrailModels).forEach(model => this.scene.remove(model));
       Object.entries(handrailFiles).forEach(([name, handrailFile]) => {
-        let color = 'darkslategrey';
+        let color = hr_color;
         let scale = 1;
         if (startHandrail && name === `${startHandrail.value}.stl`) {
-          color = 'black';
+          color = hr_start_color;
         } else if (endHandrail && name === `${endHandrail.value}.stl`) {
-          color = 'green';
+          color = hr_end_color;
         } else {
           // refactor and exit early or just loop routes outside for performance
-          routes.forEach(route => {
+          routes.forEach(route => { 
             route.nodes.forEach(node => {
               if (name === `${node}.stl`) {
                 color = route.color;
@@ -138,13 +155,27 @@ export default class Renderer extends React.Component {
         handrailMesh.name = name;
         this.handrailModels[name] = handrailMesh;
         this.scene.add(handrailMesh);
+        // -------------------------- glow breaks model -------------------------
+        //this.addGlow(handrailMesh);
       });
       strFiles.forEach(strFile => positionModelsBasedOnStrFile(this.handrailModels, strFile));
       // bindDomEventsToMeshes(this.handrailModels, this.domEvents, this.domEventsMap);
     }
     this.animate();
   }
-
+  
+  addGlow(geometry) {
+	  var customMaterial = new THREE.ShaderMaterial({
+		side: THREE.FrontSide,
+		blending: THREE.AdditiveBlending,
+		transparent: true
+	  });
+	  var glow = new THREE.Mesh( geometry.clone(), customMaterial.clone() );
+	  glow.position = geometry.position;
+	  glow.scale.multiplyScalar(1.2);
+	  this.scene.add(glow);
+  }
+  
   addShadowedLight(x, y, z, color, intensity) {
     const directionalLight = new THREE.DirectionalLight(color, intensity);
     directionalLight.position.set(x, y, z);
