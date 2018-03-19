@@ -41,7 +41,7 @@ main {
     cursor: pointer;
     position: absolute;
     bottom: 1em;
-    right: 1em;
+    right: 2em;
     border: 1px solid black;
     padding: 0.5em;
   }
@@ -103,5 +103,5 @@ main {
 .results {
   padding: 1em;
   overflow: auto;
-  height: 20em;
+  height: 50%;
 }

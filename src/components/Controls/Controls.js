@@ -201,6 +201,7 @@ export default class Controls extends React.Component {
           <TabList>
             <Tab>Controls</Tab>
             <Tab>Upload Files</Tab>
+            <Tab>Path Results</Tab>
           </TabList>
           <TabPanel>
             <div className='handrails-selector'>
@@ -232,7 +233,7 @@ export default class Controls extends React.Component {
                 }}
               />
             </div>
-            <div className='route-select-control'>
+           <div className='route-select-control'>
               <strong>Visible Paths</strong>
               <CheckboxGroup className='route-select-container' name="routes" value={visibleRoutes} onChange={onRoutesChange}>
                 {this.defaultRoutes.map(route => (
@@ -243,10 +244,13 @@ export default class Controls extends React.Component {
                 ))}
               </CheckboxGroup>
             </div>
-            <div className='action-control'>
+             <div className='action-control'>
               <button className='button-primary' onClick={this.submit}>Go</button>
               <button className='button-primary' onClick={onReset}>Reset</button>
             </div>
+          <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+          <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+          <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
           </TabPanel>
           <TabPanel>
             <div className='file-controls'>
@@ -293,7 +297,12 @@ export default class Controls extends React.Component {
                   )}
                 </Dropzone>
               </div>
+              <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+              <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+              <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
             </div>
+          </TabPanel>
+          <TabPanel>
           </TabPanel>
         </Tabs>
       </div>

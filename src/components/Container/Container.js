@@ -25,7 +25,7 @@ export default class Container extends React.Component {
       routes: this.defaultRoutes,
       visibleRoutes: [1, 2, 3],
       routesLoaded: false,
-      wingspan: 5,
+      wingspan: 4,
     };
     this.handrails = [];
     this.handleWingspanChange = this.handleWingspanChange.bind(this);
@@ -44,7 +44,7 @@ export default class Container extends React.Component {
       visibleRoutes: [1, 2, 3],
       startHandrail: null,
       endHandrail: null,
-      wingspan: 5,
+      wingspan: 4,
       routes: this.defaultRoutes
     });
   }
