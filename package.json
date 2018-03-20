@@ -20,10 +20,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/lovetostrike/nasa-path-finder"
+    "url": "https://github.com/xpaddict/nasa-path-finder"
   },
   "license": "Unlicense",
-  "homepage": "https://github.com/lovetostrike/nasa-path-finder#readme",
+  "homepage": "https://github.com/xpaddict/nasa-path-finder#readme",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "clean-webpack-plugin": "^0.1.17",
