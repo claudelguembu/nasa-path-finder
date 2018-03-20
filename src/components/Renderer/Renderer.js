@@ -1,3 +1,9 @@
+/**
+ * Project: NASA Path in conjunction with University of Maryland University College
+ * @author Group 1 NASA Path team
+ * @author Nikki Florea
+ */
+// March 2018 - Nikki - Modified to add glow and update visibility of handrails
 import React from 'react';
 import 'utils/stlLoader';
 import {
@@ -13,6 +19,8 @@ import OrbitControlsFactory from 'three-orbit-controls';
 import PropTypes from 'prop-types';
 
 let OrbitControls = OrbitControlsFactory(THREE);
+
+// create constructor
 export default class Renderer extends React.Component {
   constructor() {
     super();
@@ -38,13 +46,16 @@ export default class Renderer extends React.Component {
     this.processFiles = this.processFiles.bind(this);
   }
 
+  //enable props (React name for components accepting arbitrary inputs)
   componentWillReceiveProps(newProps) {
     if (this.props.stationFile !== newProps.stationFile) {
       this.stationModelIsDirty = true;
     }
   }
 
+  // 
   componentDidMount() {
+	// create constants and set values
 	const {
 		// -- set background and lighting effect values here --
 		scene_bg_color = '#0a2044', //navy
@@ -53,24 +64,30 @@ export default class Renderer extends React.Component {
 		hemisphere_intensity = .7,
 	} = this.props;
 	
+	// checks for webgl
     if (!Detector.webgl) {
       Detector.addGetWebGLMessage();
     }
+    
+    // create camera object
     this.camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.0001, 5000);
     this.camera.position.set(0, 0, 3);
     this.cameraTarget = new THREE.Vector3(0, 0, 0);
+    
+    // create scene object
     this.scene = new THREE.Scene();
-
     this.scene.background = new THREE.Color(scene_bg_color);
 
     // mouse controls to rotate/zoom the model
     new OrbitControls(this.camera);
-    // Lights
+    
+    // create lights
     this.scene.add(new THREE.HemisphereLight(hemisphere_sky_color, hemisphere_ground_color, hemisphere_intensity));
     // addShadowedLight parameters (x, y, z, color, intensity)
     this.addShadowedLight(1, 1, 1, 0xffffff, .8);
     this.addShadowedLight(0.5, 1, -1, 0xffffff, 1);
-    // this.renderer
+    
+    // create renderer
     this.renderer = new THREE.WebGLRenderer({antialias: true});
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -81,26 +98,32 @@ export default class Renderer extends React.Component {
     this.container.appendChild(this.renderer.domElement);
     this.stats = new Stats();
     
+    // create window event listener
     this.container.appendChild(this.stats.domElement);
     window.addEventListener('resize', this.handleWindowResize, false);
     // dom events for meshes
     this.domEvents = createDomEvents(this.camera, this.renderer);
-  }
+  } //end componentDidMount()
 
+  //check for updates
   componentDidUpdate() {
     this.processFiles();
   }
 
+  //dismount -- does nothing atm
   componentWillUnMount() {
     window.addEventListener('resize', this.handleWindowResize, false);
     // unbindDomEventsFromMeshes(this.handrailModels, this.domEvents, this.domEventsMap);
   }
 
+  //handrail mouseover state
   handleHandrailMouseOver(e) {
     this.setState({hoveredHandrail: e.target});
   }
-
+  
+  //process stl and str files
   processFiles() {
+	//create constant props
     const {
       // -- set hand-rail color values here --
       hr_color = '#3f5056', //blue-gray
@@ -117,6 +140,8 @@ export default class Renderer extends React.Component {
     if (!stationFile) {
       return;
     }
+    
+    //clean model
     if (this.stationModelIsDirty) {
       if (this.stationModel) {
         this.scene.remove(this.stationModel);
@@ -130,12 +155,14 @@ export default class Renderer extends React.Component {
       this.camera.lookAt(mesh);
       this.stationModelIsDirty = false;
     } 
-
+    
+    //load handrails
     if (handrailFiles && Object.keys(handrailFiles).length > 0 && strFiles && strFiles.length > 0 ) {
       Object.values(this.handrailModels).forEach(model => this.scene.remove(model));
       Object.entries(handrailFiles).forEach(([name, handrailFile]) => {
         let color = hr_color;
         let scale = 1;
+        // set start/end/route handrail color
         if (startHandrail && name === `${startHandrail.value}.stl`) {
           color = hr_start_color;
         } else if (endHandrail && name === `${endHandrail.value}.stl`) {
@@ -151,12 +178,34 @@ export default class Renderer extends React.Component {
             });
           });
         }
+        
+        // add handrail mesh to scene
         const handrailMesh = loadMeshFromFile(handrailFile, {color}, {scale});
         handrailMesh.name = name;
         this.handrailModels[name] = handrailMesh;
         this.scene.add(handrailMesh);
-        // -------------------------- glow breaks model -------------------------
-        //this.addGlow(handrailMesh);
+
+        // create glow material
+        const glow = new THREE.ShaderMaterial( 
+        	{
+        		uniforms: 
+        		{ 
+        			"c":   { type: "f", value: .7 },
+        			"p":   { type: "f", value: 1.7 },
+        			glowColor: { type: "c", value: new THREE.Color(0x0c9bff) },
+        			viewVector: { type: "v3", value: this.camera.position }
+        		},
+        		//-- glowy bit needs a bit of work --
+        		//vertexShader: this.fs.readFileSync(this.path.join(__dirname, 'shader.vert'), 'utf8'),
+        		//fragmentShader: this.fs.readFileSync(this.path.join(__dirname, 'shader.frag'), 'utf8'),
+        		side: THREE.FrontSide,
+        		blending: THREE.AdditiveBlending,
+        		transparent: true
+       		}   );
+        
+        // add glowy-handrail mesh to scene
+        const handrailMeshClone = new THREE.Mesh(handrailMesh.geometry, new THREE.ShaderMaterial(glow));
+        handrailMesh.add(handrailMeshClone);
       });
       strFiles.forEach(strFile => positionModelsBasedOnStrFile(this.handrailModels, strFile));
       // bindDomEventsToMeshes(this.handrailModels, this.domEvents, this.domEventsMap);
@@ -164,18 +213,7 @@ export default class Renderer extends React.Component {
     this.animate();
   }
   
-  addGlow(geometry) {
-	  var customMaterial = new THREE.ShaderMaterial({
-		side: THREE.FrontSide,
-		blending: THREE.AdditiveBlending,
-		transparent: true
-	  });
-	  var glow = new THREE.Mesh( geometry.clone(), customMaterial.clone() );
-	  glow.position = geometry.position;
-	  glow.scale.multiplyScalar(1.2);
-	  this.scene.add(glow);
-  }
-  
+  //shadowed light effect
   addShadowedLight(x, y, z, color, intensity) {
     const directionalLight = new THREE.DirectionalLight(color, intensity);
     directionalLight.position.set(x, y, z);
@@ -192,11 +230,15 @@ export default class Renderer extends React.Component {
     directionalLight.shadow.mapSize.height = 1024;
     directionalLight.shadow.bias = -0.005;
   }
+  
+  //handle window
   handleWindowResize() {
     this.camera.aspect = window.innerWidth / window.innerHeight;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(window.innerWidth, window.innerHeight);
   }
+  
+  //animate scene movement
   animate() {
     requestAnimationFrame(this.animate);
     this.camera.lookAt(this.cameraTarget);
@@ -204,6 +246,7 @@ export default class Renderer extends React.Component {
     this.stats.update();
   }
 
+  //render div for state of hovered handrails
   render() {
     const {
       hoveredHandrail
@@ -224,6 +267,7 @@ export default class Renderer extends React.Component {
   }
 }
 
+//renderer props
 Renderer.propTypes = {
   stationFile: PropTypes.object,
   handrailFiles: PropTypes.object.isRequired,
