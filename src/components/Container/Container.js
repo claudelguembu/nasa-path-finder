@@ -10,10 +10,12 @@ import fetch from 'isomorphic-fetch';
 export default class Container extends React.Component {
   constructor() {
     super();
+    
     this.defaultRoutes = [
-      {value: 1, color: '#45FFFF', nodes: []},
-      {value: 2, color: '#D7FF5F', nodes: []},
-      {value: 3, color: '#EB9EFF', nodes: []},
+      // -- set route color values here --
+      {value: 1, color: '#ff5000', nodes: []}, //orange
+      {value: 2, color: '#00d4ff', nodes: []}, //light blue
+      {value: 3, color: '#ff00cb', nodes: []}, //purple
     ];
     this.state = {
       stationFile: null,
