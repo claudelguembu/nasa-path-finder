@@ -3,7 +3,8 @@
  * @author Group 1 NASA Path team
  * @author Nikki Florea
  */
-// March 2018 - Nikki - Modified to add glow and update visibility of handrails
+// March 2018 - Nikki - Modified to add glow and update visibility of handrails,
+// added in-line documentation
 import React from 'react';
 import 'utils/stlLoader';
 import {
@@ -71,7 +72,8 @@ export default class Renderer extends React.Component {
     
     // create camera object
     this.camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.0001, 5000);
-    this.camera.position.set(0, 0, 3);
+    //start position of camera (left-right, up-down, zoom)
+    this.camera.position.set(-1, 0, 2.3);
     this.cameraTarget = new THREE.Vector3(0, 0, 0);
     
     // create scene object
@@ -155,7 +157,30 @@ export default class Renderer extends React.Component {
       this.camera.lookAt(mesh);
       this.stationModelIsDirty = false;
     } 
-    
+          //script that defines the vertex shader
+        var vertexShaderSource = `
+        	uniform vec3 viewVector;
+        	uniform float c;
+        	uniform float p;
+        	varying float intensity;
+        	void main() 
+        	{
+	        	vec3 vNormal = normalize( normalMatrix * normal );
+	        	vec3 vNormel = normalize( normalMatrix * viewVector );
+	        	intensity = pow( c - dot(vNormal, vNormel), p );
+	        	gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+        	}
+        `;
+        //script that defines the fragment shader
+        var fragmentShaderSource = `
+        	uniform vec3 glowColor;
+        	varying float intensity;
+        	void main() 
+        	{
+	        	vec3 glow = glowColor * intensity;
+	        	gl_FragColor = vec4( glow, 1.0 );
+        	}
+        `;  
     //load handrails
     if (handrailFiles && Object.keys(handrailFiles).length > 0 && strFiles && strFiles.length > 0 ) {
       Object.values(this.handrailModels).forEach(model => this.scene.remove(model));
@@ -192,12 +217,12 @@ export default class Renderer extends React.Component {
         		{ 
         			"c":   { type: "f", value: .7 },
         			"p":   { type: "f", value: 1.7 },
-        			glowColor: { type: "c", value: new THREE.Color(0x0c9bff) },
+        			glowColor: { type: "c", value: new THREE.Color(0xef00ff) },
         			viewVector: { type: "v3", value: this.camera.position }
         		},
         		//-- glowy bit needs a bit of work --
-        		//vertexShader: this.fs.readFileSync(this.path.join(__dirname, 'shader.vert'), 'utf8'),
-        		//fragmentShader: this.fs.readFileSync(this.path.join(__dirname, 'shader.frag'), 'utf8'),
+        		vertexShader: vertexShaderSource,
+        		fragmentShader: fragmentShaderSource,
         		side: THREE.FrontSide,
         		blending: THREE.AdditiveBlending,
         		transparent: true
