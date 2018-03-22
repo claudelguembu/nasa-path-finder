@@ -129,7 +129,7 @@ export default class Renderer extends React.Component {
     const {
       // -- set hand-rail color values here --
       hr_color = '#3f5056', //blue-gray
-      hr_start_color = '#28a009', // green //
+      hr_start_color = '#0fff00', // green //
       hr_end_color = '#ff0022', //red
       
       stationFile,
@@ -151,153 +151,212 @@ export default class Renderer extends React.Component {
         this.stationModel.material.dispose();
         this.stationModel = undefined;
       }
+      
+
+/*  	var sphereGeometry = new THREE.SphereGeometry( .3, 10, 10 );
+  	
+  	var lavaTexture = new THREE.TextureLoader.load( 'images/lava.jpg' );
+    var sphereMaterial = new THREE.MeshPhongMaterial( { map: lavaTexture } );
+	var sphere = new THREE.Mesh( sphereGeometry, sphereMaterial );
+	sphere.position.set(0,0,1);
+	this.scene.add(sphere);
+      
+    //create texture  
+	var lavaTexture = new THREE.TextureLoader().load( "images/lava.jpg" );
+	//create geometry
+	var geometry = new THREE.BoxBufferGeometry( .3, .3, .3);
+	//map texture to geometry
+	var sphereMaterial = new THREE.MeshBasicMaterial( { map: lavaTexture } );
+	//combine geometry and material into a mesh
+	var sphere = new THREE.Mesh( geometry, sphereMaterial );
+	//position mesh
+	sphere.position.set(0,0,1);
+	//add mesh to screen
+	this.scene.add( sphere );
+      
+      
+      //make sphere (radius, segmentsWidth, segmentsHeight)
+      var sphereGeom = new THREE.SphereGeometry(.5, 10, 10);
+
+      
+     
+      
+      //load texture
+      var lavaTexture = THREE.ImageUtils.loadTexture( 'images/lava.jpg' );
+      lavaTexture.wrapS = lavaTexture.wrapT = THREE.RepeatWrapping;
+      lavaTexture.repeat.set( 10, 10 );
+      var lavaMaterial = new THREE.MeshBasicMaterial( { map: lavaTexture } );
+      var lavaBall = new THREE.Mesh( sphereGeom, lavaMaterial );
+
+      //set position
+      lavaBall.position.set(0,0,-1);
+      //add to scene
+      this.scene.add(lavaBall);
+      
+      
+      */
+      
+      
+      
       const mesh = loadMeshFromFile(stationFile);
       this.stationModel = mesh;
       this.scene.add(mesh);
       this.camera.lookAt(mesh);
       this.stationModelIsDirty = false;
-    } 
-          //script that defines the vertex shader
-        var vertexShaderSource = `
-        	uniform vec3 viewVector;
-        	uniform float c;
-        	uniform float p;
-        	varying float intensity;
-        	void main() 
-        	{
-	        	vec3 vNormal = normalize( normalMatrix * normal );
-	        	vec3 vNormel = normalize( normalMatrix * viewVector );
-	        	intensity = pow( c - dot(vNormal, vNormel), p );
-	        	gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-        	}
-        `;
-        //script that defines the fragment shader
-        var fragmentShaderSource = `
-        	uniform vec3 glowColor;
-        	varying float intensity;
-        	void main() 
-        	{
-	        	vec3 glow = glowColor * intensity;
-	        	gl_FragColor = vec4( glow, 1.0 );
-        	}
-        `;  
+    }
+    
+    //script that defines the vertex shader
+    var vertexShaderSource = `
+    	uniform vec3 viewVector;
+    	uniform float c;
+    	uniform float p;
+    	varying float intensity;
+    	void main() 
+    	{
+	    	vec3 vNormal = normalize( normalMatrix * normal );
+	    	vec3 vNormel = normalize( normalMatrix * viewVector );
+	    	intensity = pow( c - dot(vNormal, vNormel), p );
+	    	gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+    	}
+    `;
+    
+    //script that defines the fragment shader
+    var fragmentShaderSource = `
+    	uniform vec3 glowColor;
+    	varying float intensity;
+    	void main() 
+    	{
+	    	vec3 glow = glowColor * intensity;
+	    	gl_FragColor = vec4( glow, 1.0 );
+    	}
+    `;
+    
+    // create glow material
+    const glowMaterial = new THREE.ShaderMaterial( 
+    	{
+    		uniforms: 
+    		{ 
+    			"c":   { type: "f", value: 1 },
+    			"p":   { type: "f", value: 3 },
+    			glowColor: { type: "c", value: new THREE.Color(0xff0022) },
+    			viewVector: { type: "v3", value: this.camera.position }
+    		},
+    		//add shaders to the material
+    		vertexShader: vertexShaderSource,
+    		fragmentShader: fragmentShaderSource,
+    		//set cast shadow to front
+    		side: THREE.FrontSide,
+    		//set blending equation to blend RGB and Alpha
+    		blending: THREE.AdditiveBlending,
+    		//turn on transparency
+    		transparent: true
+   	}   );
+    
     //load handrails
     if (handrailFiles && Object.keys(handrailFiles).length > 0 && strFiles && strFiles.length > 0 ) {
-      Object.values(this.handrailModels).forEach(model => this.scene.remove(model));
-      Object.entries(handrailFiles).forEach(([name, handrailFile]) => {
-        let color = hr_color;
-        let scale = 1;
-        // set start/end/route handrail color
-        if (startHandrail && name === `${startHandrail.value}.stl`) {
-          color = hr_start_color;
-        } else if (endHandrail && name === `${endHandrail.value}.stl`) {
-          color = hr_end_color;
-        } else {
-          // refactor and exit early or just loop routes outside for performance
-          routes.forEach(route => { 
-            route.nodes.forEach(node => {
-              if (name === `${node}.stl`) {
-                color = route.color;
-                scale = 1;
-              }
-            });
-          });
-        }
-        
-        // add handrail mesh to scene
-        const handrailMesh = loadMeshFromFile(handrailFile, {color}, {scale});
-        handrailMesh.name = name;
-        this.handrailModels[name] = handrailMesh;
-        this.scene.add(handrailMesh);
-
-        // create glow material
-        const glow = new THREE.ShaderMaterial( 
-        	{
-        		uniforms: 
-        		{ 
-        			"c":   { type: "f", value: .7 },
-        			"p":   { type: "f", value: 1.7 },
-        			glowColor: { type: "c", value: new THREE.Color(0xef00ff) },
-        			viewVector: { type: "v3", value: this.camera.position }
-        		},
-        		//-- glowy bit needs a bit of work --
-        		vertexShader: vertexShaderSource,
-        		fragmentShader: fragmentShaderSource,
-        		side: THREE.FrontSide,
-        		blending: THREE.AdditiveBlending,
-        		transparent: true
-       		}   );
-        
-        // add glowy-handrail mesh to scene
-        const handrailMeshClone = new THREE.Mesh(handrailMesh.geometry, new THREE.ShaderMaterial(glow));
-        handrailMesh.add(handrailMeshClone);
-      });
-      strFiles.forEach(strFile => positionModelsBasedOnStrFile(this.handrailModels, strFile));
-      // bindDomEventsToMeshes(this.handrailModels, this.domEvents, this.domEventsMap);
+    	Object.values(this.handrailModels).forEach(model => this.scene.remove(model));
+    	Object.entries(handrailFiles).forEach(([name, handrailFile]) => {
+    		let color = hr_color;
+    		let scale = 1;
+    		var handrailMesh = loadMeshFromFile(handrailFile, {color}, {scale});
+    		// set start/end/route handrail color
+    		if (startHandrail && name === `${startHandrail.value}.stl`) {
+    			color = hr_start_color;
+    			handrailMesh = loadMeshFromFile(handrailFile, {color}, {scale});
+    			// add glowy-handrail mesh to scene
+    			const handrailMeshClone = new THREE.Mesh(handrailMesh.geometry, new THREE.ShaderMaterial(glowMaterial));
+    			handrailMeshClone.scale.multiplyScalar(1.4);
+    			handrailMesh.add(handrailMeshClone);
+    		} else if (endHandrail && name === `${endHandrail.value}.stl`) {
+    			color = hr_end_color;
+    			handrailMesh = loadMeshFromFile(handrailFile, {color}, {scale});
+    			// add glowy-handrail mesh to scene
+    			const handrailMeshClone = new THREE.Mesh(handrailMesh.geometry, new THREE.ShaderMaterial(glowMaterial));
+    			handrailMeshClone.scale.multiplyScalar(1.4);
+    			handrailMesh.add(handrailMeshClone);
+    		} else {
+    			// refactor and exit early or just loop routes outside for performance
+    			routes.forEach(route => { 
+    				route.nodes.forEach(node => {
+    					if (name === `${node}.stl`) {
+    						color = route.color;
+    						scale = 1;
+    						handrailMesh = loadMeshFromFile(handrailFile, {color}, {scale});
+    					}
+    				});
+    			});
+    		}
+    		handrailMesh.name = name;
+    		this.handrailModels[name] = handrailMesh;
+    		// add handrail mesh to scene
+    		this.scene.add(handrailMesh);
+    	});
+    	strFiles.forEach(strFile => positionModelsBasedOnStrFile(this.handrailModels, strFile));
+    	// bindDomEventsToMeshes(this.handrailModels, this.domEvents, this.domEventsMap);
     }
     this.animate();
-  }
-  
+  } //end processFiles()
+
   //shadowed light effect
   addShadowedLight(x, y, z, color, intensity) {
-    const directionalLight = new THREE.DirectionalLight(color, intensity);
-    directionalLight.position.set(x, y, z);
-    this.scene.add(directionalLight);
-    directionalLight.castShadow = true;
-    const d = 1;
-    directionalLight.shadow.camera.left = -d;
-    directionalLight.shadow.camera.right = d;
-    directionalLight.shadow.camera.top = d;
-    directionalLight.shadow.camera.bottom = -d;
-    directionalLight.shadow.camera.near = 1;
-    directionalLight.shadow.camera.far = 4;
-    directionalLight.shadow.mapSize.width = 1024;
-    directionalLight.shadow.mapSize.height = 1024;
-    directionalLight.shadow.bias = -0.005;
+	  const directionalLight = new THREE.DirectionalLight(color, intensity);
+	  directionalLight.position.set(x, y, z);
+	  this.scene.add(directionalLight);
+	  directionalLight.castShadow = true;
+	  const d = 1;
+	  directionalLight.shadow.camera.left = -d;
+	  directionalLight.shadow.camera.right = d;
+	  directionalLight.shadow.camera.top = d;
+	  directionalLight.shadow.camera.bottom = -d;
+	  directionalLight.shadow.camera.near = 1;
+	  directionalLight.shadow.camera.far = 4;
+	  directionalLight.shadow.mapSize.width = 1024;
+	  directionalLight.shadow.mapSize.height = 1024;
+	  directionalLight.shadow.bias = -0.005;
   }
   
   //handle window
   handleWindowResize() {
-    this.camera.aspect = window.innerWidth / window.innerHeight;
-    this.camera.updateProjectionMatrix();
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
+	  this.camera.aspect = window.innerWidth / window.innerHeight;
+	  this.camera.updateProjectionMatrix();
+	  this.renderer.setSize(window.innerWidth, window.innerHeight);
   }
   
   //animate scene movement
   animate() {
-    requestAnimationFrame(this.animate);
-    this.camera.lookAt(this.cameraTarget);
-    this.renderer.render(this.scene, this.camera);
-    this.stats.update();
+	  requestAnimationFrame(this.animate);
+	  this.camera.lookAt(this.cameraTarget);
+	  this.renderer.render(this.scene, this.camera);
+	  this.stats.update();
   }
 
   //render div for state of hovered handrails
   render() {
-    const {
-      hoveredHandrail
-    } = this.state;
-    return (
-      <div>
-        <div className='info-panel'>
-          {hoveredHandrail &&
-            <div>
-              <div>{hoveredHandrail.name}</div>
-              <div>{Object.values(hoveredHandrail.position).join(', ')}</div>
-            </div>
-          }
-        </div>
-        <div ref={c => this.container = c}></div>
-      </div>
-    );
+	  const {
+		  hoveredHandrail
+	  } = this.state;
+	  return (
+			  <div>
+			  <div className='info-panel'>
+			  {hoveredHandrail &&
+				  <div>
+			  <div>{hoveredHandrail.name}</div>
+			  <div>{Object.values(hoveredHandrail.position).join(', ')}</div>
+			  </div>
+			  }
+			  </div>
+			  <div ref={c => this.container = c}></div>
+			  </div>
+	  );
   }
 }
 
 //renderer props
 Renderer.propTypes = {
-  stationFile: PropTypes.object,
-  handrailFiles: PropTypes.object.isRequired,
-  strFiles: PropTypes.array.isRequired,
-  startHandrail: PropTypes.object,
-  endHandrail: PropTypes.object,
-  routes: PropTypes.array,
+		stationFile: PropTypes.object,
+		handrailFiles: PropTypes.object.isRequired,
+		strFiles: PropTypes.array.isRequired,
+		startHandrail: PropTypes.object,
+		endHandrail: PropTypes.object,
+		routes: PropTypes.array,
 };
