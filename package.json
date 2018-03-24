@@ -46,7 +46,8 @@
     "stats-js": "^1.0.0-alpha1",
     "stats.js": "^0.17.0",
     "three": "^0.87.1",
-    "three-orbit-controls": "^82.1.0"
+    "three-orbit-controls": "^82.1.0",
+    "threex.geometricglow": "https://github.com/pasface/threex.geometricglow.git"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",
