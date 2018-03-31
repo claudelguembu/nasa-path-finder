@@ -3,5 +3,5 @@ SET /p workingDir=< cd.txt
 
 TITLE yarn compile
 CD %workingDir%
-CALL yarn compile:start:server
+CALL yarn compilewin:start:server
 @PAUSE
