@@ -6,11 +6,13 @@ public class RouteRequest {
   private String startHandrail;
   private String endHandrail;
   private ArrayList<Node> nodes;
+  private String wingspan;
 
-  public RouteRequest(String startHandrail, String endHandrail, ArrayList<Node> nodes) {
+  public RouteRequest(String startHandrail, String endHandrail, ArrayList<Node> nodes, String wingspan) {
     this.startHandrail = startHandrail;
     this.endHandrail = endHandrail;
     this.nodes = nodes;
+    this.wingspan = wingspan;
   }
 
   public void setStartHandrail(String startHandrail) {
@@ -22,6 +24,9 @@ public class RouteRequest {
   public void setNodes(ArrayList<Node> nodes) {
     this.nodes = nodes;
   }
+  public void setWingspan(String wingspan) {
+	this.wingspan = wingspan;
+  }
   public String getStartHandrail() {
     return this.startHandrail;
   }
@@ -30,5 +35,8 @@ public class RouteRequest {
   }
   public ArrayList<Node> getNodes() {
     return this.nodes;
+  }
+  public String getWingspan() {
+	return this.wingspan;
   }
 }

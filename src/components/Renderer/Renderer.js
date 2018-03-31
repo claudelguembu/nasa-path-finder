@@ -385,4 +385,5 @@ Renderer.propTypes = {
 		startHandrail: PropTypes.object,
 		endHandrail: PropTypes.object,
 		routes: PropTypes.array,
+		wingspan: PropTypes.number,
 };

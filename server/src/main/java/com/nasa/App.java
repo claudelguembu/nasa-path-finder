@@ -79,22 +79,35 @@ public class App extends NanoHTTPD {
     // Get POST request
     String postBody = map.get("postData");
     Gson gson = new Gson();
-    RouteRequest rr = new RouteRequest("", "", new ArrayList<Node>());
+    RouteRequest rr = new RouteRequest("", "", new ArrayList<Node>(), "");
     try {
       rr = gson.fromJson(postBody, RouteRequest.class);
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
-
+    
     // Output start and end points to console
     System.out.println("Start: " + rr.getStartHandrail());
     System.out.println("End: " + rr.getEndHandrail());
-    System.out.println("Running algorithm...");
+    //System.out.println("Running algorithm...");	JUSW COMMENTED - Moved line below
 
     DijkstraPaths dp = new DijkstraPaths();
     ArrayList<List<Node>> listOfNodeLists = new ArrayList<List<Node>>();
     String resultListsString = "";
-    int[] thresholds = {46, 54, 62};
+    //int[] thresholds = {46, 54, 62};	' JUSW COMMENTED - Replaced with wingspan value calculation below
+    
+    // Set the thresholds using the wingspan input value
+    Double wingspan = Double.parseDouble(rr.getWingspan());
+    
+    // Convert the wingspan value from feet to inches
+    wingspan = wingspan * 12.0;
+    System.out.println("Wingspan : " + rr.getWingspan() + " ft --> " + Double.toString(wingspan) + " in");
+    
+    // Thresholds for paths are the wingspan distance incremented by 8 inches for each path
+    Double[] thresholds = {wingspan, (wingspan + 8.0), (wingspan + 16.0)};	
+    System.out.println("Thresholds: {" + wingspan + ", " + (wingspan + 8.0) + ", " + (wingspan + 16.0) + "}");
+    
+    System.out.println("Running algorithm...");
 
     // Apply Dijkstra's algorithm to calculate shortest path
     for (int i = 0; i < thresholds.length; i++) {

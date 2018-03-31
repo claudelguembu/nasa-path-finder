@@ -114,7 +114,8 @@ export default class Container extends React.Component {
       body: JSON.stringify({
         startHandrail: data.startHandrail ? data.startHandrail.value : null,
         endHandrail: data.endHandrail ? data.endHandrail.value : null,
-        nodes: this.handrails
+        nodes: this.handrails, 
+        wingspan: data.wingspan.toString()
       })
     })
       .then(resp => resp.json())
@@ -226,6 +227,7 @@ export default class Container extends React.Component {
             startHandrail={startHandrail}
             endHandrail={endHandrail}
             routes={routes.filter(r => visibleRoutes.includes(r.value)).reverse()}
+          	wingspan={wingspan}
           />
         </Sidebar>
       </div>

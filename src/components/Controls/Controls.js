@@ -168,10 +168,12 @@ export default class Controls extends React.Component {
     const {
       startHandrail,
       endHandrail,
+      wingspan,
     } = this.props;
     this.props.onSubmit({
       startHandrail,
       endHandrail,
+      wingspan,
     });
   }
 
