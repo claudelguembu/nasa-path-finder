@@ -3,8 +3,10 @@
  * @author Group 1 NASA Path team
  * @author Nikki Florea
  */
-// March 2018 - Nikki - Modified to add glow and update visibility of handrails,
-// added in-line documentation
+// March 2018 - Nikki - 
+// Modified file to improve color contrast of handrails
+// Added glow effect to handrails
+// Added in-line documentation
 import React from 'react';
 import 'utils/stlLoader';
 import {
@@ -59,7 +61,7 @@ export default class Renderer extends React.Component {
 	// create constants and set values
 	const {
 		// -- set background and lighting effect values here --
-		scene_bg_color = '#0a2044', //navy
+		scene_bg_color = '#000', // black (for navy #0a2044)
 		hemisphere_sky_color = '#eff6f7', //light blue
 		hemisphere_ground_color = '#eff6f7', //light blue
 		hemisphere_intensity = .7,
@@ -129,50 +131,41 @@ export default class Renderer extends React.Component {
   };
   
   //create glow material
-  buildGlow(hexColor, vert, frag){
-	    // create glass material 
-	    // based on Lee Stemkoski's glow
-	    const material = new THREE.ShaderMaterial( 
-	   	{
-	   		uniforms: 
-	   		{ 
-	   			"c":   { type: "f", value: .1 },
-	   			"p":   { type: "f", value: 10 },
-	   			glowColor: { type: "c", value: new THREE.Color(hexColor) },
-	   			viewVector: { type: "v3", value: this.camera.position }
-	   		},
-	   		//add shaders to the material
-	   		vertexShader: vert,
-	   		fragmentShader: frag,
-	   		//set cast shadow to front
-	   		side: THREE.BackSide,
-	   		//set blending equation to blend RGB and Alpha
-	   		blending: THREE.AdditiveBlending,
-	   		//turn on transparency
-	   		transparent: true
-	  }   );
-	  
-	  //create explosion material
-/*	  const material = new THREE.RawShaderMaterial({
-		  vertexShader: vert,
-		  fragmentShader: frag,
-		  uniforms: {
-			  time: { type: 'f', value: 0 }
-		  },
-	  });*/
+  buildGlow(vert, frag){
+	  //create glow material based on Jerome Etienne's glow
+	  var material	= new THREE.ShaderMaterial({
+			uniforms: { 
+				coeficient: {
+					type: "f", 
+					value: 1.0
+				},
+				power : {
+					type : "f",
+					value : 2
+				},
+				glowColor : {
+					type : "c",
+					value : new THREE.Color('pink')
+				},
+			},
+			vertexShader : vert,
+			fragmentShader : frag,
+			transparent : true,
+			depthWrite : false,
+	});
 	  return material;
 };
-  
+
   //process stl and str files
   processFiles() {
 	//create constant props
     const {
       // -- set hand-rail color values here --
-      hrColor = '#3f5056', //blue-gray
-      hrStartColor = '#0cff00', // green
-      hrEndColor = '#ff0022', //red
-      hrStartHexColor = 0x0cff00,
-      hrEndHexColor = 0xff0022,
+      hrColor = '#3f5056', //blue gray
+      hrStartColor = '#0823d1', // blue
+      hrEndColor = '#7744d6', // purple
+      //hrStartHexColor = 0x0823d1, // blue for light
+      //hrEndHexColor = 0x7744d6, // purple for light
       stationFile,
       handrailFiles,
       strFiles,
@@ -200,65 +193,35 @@ export default class Renderer extends React.Component {
       this.stationModelIsDirty = false;
     }
 
-    //script that defines the vertex shader for glass effect
+  //script that defines the vertex shader for glow
     const vertexShaderSource = `
-    	uniform vec3 viewVector;
-    	uniform float c;
-    	uniform float p;
-    	varying float intensity;
-    	void main() 
-    	{
-	    	vec3 vNormal = normalize( normalMatrix * normal );
-	    	vec3 vNormel = normalize( normalMatrix * viewVector );
-	    	intensity = pow( c - dot(vNormal, vNormel), p );
-	    	gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+    	varying vec3	vVertexWorldPosition;
+		varying vec3	vVertexNormal;
+		varying vec4	vFragColor;
+		void main(){
+			vVertexNormal	= normalize(normalMatrix * normal);
+			vVertexWorldPosition	= (modelMatrix * vec4(position, 1.0)).xyz;
+			gl_Position	= projectionMatrix * modelViewMatrix * vec4(position, 1.0);
     	}
     `;
     
-    //script that defines the fragment shader for glass effect
+    //script that defines the fragment shader for glow
     const fragmentShaderSource = `
-    	uniform vec3 glowColor;
-    	varying float intensity;
-    	void main() 
-    	{
-	    	vec3 glow = glowColor * intensity;
-	    	gl_FragColor = vec4( glow, 1.0 );
+    	uniform vec3	glowColor;
+		uniform float	coeficient;
+		uniform float	power;
+		varying vec3	vVertexNormal;
+		varying vec3	vVertexWorldPosition;
+		varying vec4	vFragColor;
+		void main(){
+			vec3 worldCameraToVertex= vVertexWorldPosition - cameraPosition;
+			vec3 viewCameraToVertex	= (viewMatrix * vec4(worldCameraToVertex, 0.0)).xyz;
+			viewCameraToVertex	= normalize(viewCameraToVertex);
+			float intensity		= pow(coeficient + dot(vVertexNormal, viewCameraToVertex), power);
+    		gl_FragColor		= vec4(glowColor, intensity);
     	}
     `;
-    
-/*  //script that defines the vertex shader for explosion effect 
- *  based on Matt DesLauriers's bunny tutorial 
-    const vertexShaderSource = `
-    	attribute vec4 position;
-    	attribute vec3 normal;
-
-    	uniform mat4 projectionMatrix;
-    	uniform mat4 modelViewMatrix;
-
-    	varying vec3 vNormal;
-
-    	void main () {
-	    	vNormal = normal;
 	
-	    	vec4 offset = position;
-	    	float dist = 0.25;
-	    	offset.xyz += normal * dist;
-	    	gl_Position = projectionMatrix * modelViewMatrix * offset;
-    	}
-    `;
-    
-    //script that defines the fragment shader for explosion effect
-    const fragmentShaderSource = `
-    	precision highp float;
-
-    	varying vec3 vNormal;
-
-    	void main () {
-    		gl_FragColor = vec4(vNormal, 1.0);
-    	}
-    `;*/
-
-    
     if (handrailFiles && Object.keys(handrailFiles).length > 0 && strFiles && strFiles.length > 0 ) {
     	Object.values(this.handrailModels).forEach(model => this.scene.remove(model));
     	Object.entries(handrailFiles).forEach(([name, handrailFile]) => {
@@ -271,70 +234,55 @@ export default class Renderer extends React.Component {
     			//set color of handrail
     			color = hrStartColor;
     			
-    			//create handrail
+    			// create handrail
     			handrailMesh = loadMeshFromFile(handrailFile, {color}, {scale});
- 			
-    			// set glow material values for start handrail
-    			const glowMaterialStart = this.buildGlow(hrStartColor, vertexShaderSource, fragmentShaderSource);
     			
     			// add glowy-handrail mesh to scene
-    			//how it's done for explosion material
-    			//const handrailMeshClone = new THREE.Mesh(handrailMesh.geometry, glowMaterialStart);
-    			
-    			// how it's done for glass effect material
-    			const handrailMeshClone = new THREE.Mesh(handrailMesh.geometry, glowMaterialStart);
-    			
-    			//scale up clone
+				var gloMat = this.buildGlow(vertexShaderSource, fragmentShaderSource);
+				
+				// clone handrail and set material
+    			const handrailMeshClone = new THREE.Mesh(handrailMesh.geometry, gloMat);
+
+				// assign glow color
+				gloMat.uniforms.glowColor.value	= new THREE.Color(color);
+				gloMat.uniforms.coeficient.value = 1.1;
+				gloMat.uniforms.power.value	= 1.4;
+				
+				//scale up clone
     			handrailMeshClone.scale.multiplyScalar(1.2);
-    			
-    			//add clone to scene in handrail location 
-    			handrailMesh.add(handrailMeshClone);
-    			
-    			// add another glowy-handrail mesh to scene
-    			const handrailMeshClone2 = new THREE.Mesh(handrailMesh.geometry,glowMaterialStart);
-    			
-    			// scale it down
-    			handrailMeshClone2.scale.multiplyScalar(.8);
-    			
-    			//add to scene
-    			handrailMesh.add(handrailMeshClone2);
-    			
+				
+				//add handrail clone to scene at handrailMesh location
+				handrailMesh.add( handrailMeshClone );
+	
     			//give it it's own light
-    			var light = new THREE.PointLight( hrStartHexColor, .5, .3 );
-    		    handrailMesh.add(light);
+    			//var light = new THREE.PointLight( hrStartHexColor, .5, .3 );
+    		    //handrailMesh.add(light);				
     		} else if (endHandrail && name === `${endHandrail.value}.stl`) {
     			// set color of handrail
     			color = hrEndColor;
     			// create handrail 
     			handrailMesh = loadMeshFromFile(handrailFile, {color}, {scale});
     			
-    			// set glow material values for end handrail
-    			const glowMaterialEnd = this.buildGlow(hrEndColor, vertexShaderSource, fragmentShaderSource);
-    			
     			// add glowy-handrail mesh to scene
-    			//how it's done for explosion material
-    			//const handrailMeshClone = new THREE.Mesh(handrailMesh.geometry, glowMaterialEnd);
-    			
-    			// how it's done for glass effect material
-    			const handrailMeshClone = new THREE.Mesh(handrailMesh.geometry, glowMaterialEnd);
-    			
-    			// scale up the clone
+				gloMat = this.buildGlow(vertexShaderSource, fragmentShaderSource);
+				
+				// clone handrail and set material
+    			const handrailMeshClone = new THREE.Mesh(handrailMesh.geometry, gloMat);
+				
+				// assign glow color
+				gloMat.uniforms.glowColor.value	= new THREE.Color(color);
+				gloMat.uniforms.coeficient.value = 1.1;
+				gloMat.uniforms.power.value	= 1.4;
+				
+				//scale up clone
     			handrailMeshClone.scale.multiplyScalar(1.2);
-    			
-    			// add clone to scene in same location as handrail
-    			handrailMesh.add(handrailMeshClone);
-    			
-    			// add another glowy-handrail mesh to scene
-    			const handrailMeshClone2 = new THREE.Mesh(handrailMesh.geometry,glowMaterialEnd);
-    			
-    			// scale it down
-    			handrailMeshClone2.scale.multiplyScalar(.8);
-    			
-    			//add to scene
-    			handrailMesh.add(handrailMeshClone2);
+				
+				//add handrail clone to scene at handrailMesh location
+				handrailMesh.add( handrailMeshClone );
+
     			//give it it's own light
-    			light = new THREE.PointLight( hrEndHexColor, .5, .4 );
-    		    handrailMesh.add(light);
+    			//light = new THREE.PointLight( hrEndHexColor, .5, .3 );
+    		    //handrailMesh.add(light);
     		} else {
     			// refactor and exit early or just loop routes outside for performance
     			routes.forEach(route => { 
@@ -343,6 +291,23 @@ export default class Renderer extends React.Component {
     						color = route.color;
     						scale = 1;
     						handrailMesh = loadMeshFromFile(handrailFile, {color}, {scale});
+    						
+    						// add glowy-handrail mesh to scene
+    						gloMat = this.buildGlow(vertexShaderSource, fragmentShaderSource);
+    						
+    						// clone handrail and set material
+    		    			const handrailMeshClone = new THREE.Mesh(handrailMesh.geometry, gloMat);
+    						
+    						// assign glow color
+    						gloMat.uniforms.glowColor.value	= new THREE.Color(color);
+    						gloMat.uniforms.coeficient.value = 1.1;
+    						gloMat.uniforms.power.value	= 1.4;
+    						
+    						//scale up clone
+    		    			handrailMeshClone.scale.multiplyScalar(1.2);
+    		    			
+    		    			//add handrail clone to scene at handrailMesh location
+    						handrailMesh.add( handrailMeshClone );
     					}
     				});
     			});
@@ -357,9 +322,6 @@ export default class Renderer extends React.Component {
     }
     this.animate();
   } //end processFiles()
-  
-  
-
   
   //shadowed light effect
   addShadowedLight(x, y, z, color, intensity) {
