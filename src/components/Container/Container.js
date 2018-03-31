@@ -1,3 +1,12 @@
+/**
+ * Project: NASA Path in conjunction with University of Maryland University College
+ * @author Group 1 NASA Path team
+ * @author Nikki Florea
+ */
+// March 2018 - Nikki - 
+// Modified file to improve visibility of routes
+// Added in-line documentation
+
 import React from 'react';
 import Renderer from 'components/Renderer/Renderer';
 import Controls from 'components/Controls/Controls';
@@ -11,12 +20,15 @@ export default class Container extends React.Component {
   constructor() {
     super();
     
+    //set route colors
     this.defaultRoutes = [
       // -- set route color values here --
-      {value: 1, color: '#ff5000', nodes: []}, //orange
-      {value: 2, color: '#00d4ff', nodes: []}, //light blue
-      {value: 3, color: '#ff00cb', nodes: []}, //purple
+      {value: 1, color: '#ff00cb', nodes: []}, // magenta
+      {value: 2, color: '#07d10b', nodes: []}, // green
+      {value: 3, color: '#ffb200', nodes: []}, // gold
     ];
+    
+    // handle state changes
     this.state = {
       stationFile: null,
       handrailFiles: {},
@@ -29,6 +41,8 @@ export default class Container extends React.Component {
       routesLoaded: false,
       wingspan: 4,
     };
+    
+    // set handrail values
     this.handrails = [];
     this.handleWingspanChange = this.handleWingspanChange.bind(this);
     this.handleStationFileLoad = this.handleStationFileLoad.bind(this);
@@ -41,6 +55,7 @@ export default class Container extends React.Component {
     this.reset = this.reset.bind(this);
   }
 
+  // method to reset form
   reset() {
     this.setState({
       visibleRoutes: [1, 2, 3],
@@ -51,22 +66,27 @@ export default class Container extends React.Component {
     });
   }
 
+  // method to upload a new station model
   handleStationFileLoad(stationFile) {
     this.setState({stationFile});
   }
 
+  // method to upload new handles
   handleHandrailFilesLoad(handrailFiles) {
     this.setState({handrailFiles});
   }
 
+  // method to change wingspan
   handleWingspanChange(wingspan) {
     this.setState({wingspan});
   }
 
+  // mehtod to change route states
   handleVisibleRouteChanges(visibleRoutes) {
     this.setState({visibleRoutes});
   }
 
+  // method to upload new str file
   handleStrFilesLoad(strFiles) {
     strFiles.forEach(file =>
       this.handrails = this.handrails.concat(parseNodesFromStrFile(file))
@@ -74,16 +94,19 @@ export default class Container extends React.Component {
     this.setState({strFiles});
   }
 
+  //method to toggle sidebar to open state
   handleSidebarOpen(open) {
     this.setState({sidebarOpen: open});
   }
 
+  // method to change start handrail
   handleStartEndHandrailsChanged(startOrEnd, handrail) {
     this.setState({
       [`${startOrEnd}Handrail`]: handrail
     });
   }
 
+  // create a submit handler
   handleSubmit(data) {
     const {routes} = this.state;
     fetch(window.location.protocol + '//' + window.location.hostname + ':8080', {
@@ -110,6 +133,7 @@ export default class Container extends React.Component {
       .catch(e => console.error(e));
   }
 
+  // render div for sidebar
   render() {
     const {
       stationFile,
@@ -123,6 +147,8 @@ export default class Container extends React.Component {
       routesLoaded,
       wingspan,
     } = this.state;
+    
+    // display sidebar div
     return (
       <div className='Container'>
         <StickyHeader
