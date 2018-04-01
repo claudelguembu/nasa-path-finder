@@ -252,6 +252,8 @@ export default class Controls extends React.Component {
           <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
           <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
           <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+          <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+          <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
           </TabPanel>
           <TabPanel>
             <div className='file-controls'>
@@ -298,6 +300,8 @@ export default class Controls extends React.Component {
                   )}
                 </Dropzone>
               </div>
+              <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+              <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
               <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
               <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
               <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
