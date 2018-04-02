@@ -77,3 +77,21 @@ NASA Path Finder now supports both Linux and Windows execution, the commands to 
 API code can be found in ```/src/utils/```.  
 UI and React components can be found in ```/src/components/```.  
 Core UI functionality can be found in ```/server/src/main/java/com/nasa/```.  
+
+## Phase 2: Milestone 3 - Release Notes
+#### Documentation
+- Added in-line code documentation to core pages and elements  
+- Created User Manual to serve as a single, comprehensive reference
+- Added instructions to Install on Windows and Ubuntu
+- Added instructions to Create and Add new STL files
+
+#### User Interface
+- Utilized new add-ins to provide more defined and visible route illustrations  
+- Updated route colors to increase visibility
+- Moved pathing results to a new "Results" Tab to create more path configuration real estate
+- Created new ISS Model of 92% size which renders smoothly - goal of 100% in Milestone 4
+
+#### Pathing Logic
+- By sponsor request, verified all basic funcitonality
+- Incorporated wingspan selection into each calculated path criteria  
+- Created node grade test of shortest paths vs. software output 
