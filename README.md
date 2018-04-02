@@ -97,4 +97,4 @@ Core UI functionality can be found in ```/server/src/main/java/com/nasa/```.
 - Created node grade test of shortest paths vs. software output 
 
 #### Milestone 3 Interface
-![Milestone 3 UI Screenshot](https://imgur.com/a/F7lwj)
+![Milestone 3 UI Screenshot](/ui-html/images/pathing_one.png)
