@@ -41,8 +41,7 @@ public class CreateNodes extends Node {
     private final String FILENAME5 = homeDir + "..\\..\\..\\..\\..\\S0LABHANDHOLDS.txt";
     private final String FILENAME6 = homeDir + "..\\..\\..\\..\\..\\S0LABHANDHOLDSDISTANCES.txt";
     /**
-    * The following two file locations must be changed to the user's current directory
-    * where the files are saved on their computer, server, etc.
+    * The following locations take the current system location to determine the correct application directory.
     */
     File file1 = new File(homeDir + "..\\..\\..\\..\\..\\S0HANDHOLDS.str");
     File file2 = new File(homeDir + "..\\..\\..\\..\\..\\LABHANDHOLDS.str");
