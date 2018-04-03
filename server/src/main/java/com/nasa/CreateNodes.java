@@ -29,11 +29,13 @@ import java.util.Scanner;
  * College
  *
  * @author jadovan
+ * 
+ * Update to accept environment variable instead of hard coded location.
+ * @author Nikki Florea
  */
 public class CreateNodes extends Node {
     /**
-    * The following two file locations must be changed to the directory where the user wants
-    * the files to be saved
+     * The following locations take the current system location to determine the correct application directory.
     */
 	String homeDir = System.getenv("HOME");
     private final String FILENAME5 = homeDir + "..\\..\\..\\..\\..\\S0LABHANDHOLDS.txt";
