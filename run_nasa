@@ -1,0 +1,5 @@
+#!/bin/bash
+.  bat_files/yarn & wait
+.  bat_files/yarn_start & wait
+.  bat_files/yarn_compile & wait
+firefox http://127.0.0.1:3000/
