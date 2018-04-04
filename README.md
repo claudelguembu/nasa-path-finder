@@ -85,6 +85,9 @@ Core UI functionality can be found in ```/server/src/main/java/com/nasa/```.
 - Added instructions to Install on Windows and Ubuntu
 - Added instructions to Create and Add new STL files
 
+#### Installation
+- Updated CreateNodes.java to dynamically point to resource files instead of requiring manual installation step
+
 #### User Interface
 - Utilized new add-ins to provide more defined and visible route illustrations  
 - Updated route colors to increase visibility
@@ -94,7 +97,7 @@ Core UI functionality can be found in ```/server/src/main/java/com/nasa/```.
 #### Pathing Logic
 - By sponsor request, verified all basic funcitonality
 - Incorporated wingspan selection into each calculated path criteria  
-- Created node grade test of shortest paths vs. software output 
+- Created node graph test of shortest paths vs. software output 
 
 #### Milestone 3 Interface
 ![Milestone 3 UI Screenshot](/ui-html/images/pathing_one.png)
