@@ -29,20 +29,22 @@ import java.util.Scanner;
  * College
  *
  * @author jadovan
+ * 
+ * Update to accept environment variable instead of hard coded location.
+ * @author Nikki Florea
  */
 public class CreateNodes extends Node {
     /**
-    * The following two file locations must be changed to the directory where the user wants
-    * the files to be saved
+     * The following locations take the current system location to determine the correct application directory.
     */
-    private final String FILENAME5 = "C:\\nasa-path-finder\\server\\src\\main\\resources\\S0LABHANDHOLDS.txt";
-    private final String FILENAME6 = "C:\\nasa-path-finder\\server\\src\\main\\resources\\S0LABHANDHOLDSDISTANCES.txt";
+	String homeDir = System.getenv("HOME");
+    private final String FILENAME5 = homeDir + "..\\..\\..\\..\\..\\S0LABHANDHOLDS.txt";
+    private final String FILENAME6 = homeDir + "..\\..\\..\\..\\..\\S0LABHANDHOLDSDISTANCES.txt";
     /**
-    * The following two file locations must be changed to the user's current directory
-    * where the files are saved on their computer, server, etc.
+    * The following locations take the current system location to determine the correct application directory.
     */
-    File file1 = new File("C:\\nasa-path-finder\\server\\src\\main\\resources\\S0HANDHOLDS.str");
-    File file2 = new File("C:\\nasa-path-finder\\server\\src\\main\\resources\\LABHANDHOLDS.str");
+    File file1 = new File(homeDir + "..\\..\\..\\..\\..\\S0HANDHOLDS.str");
+    File file2 = new File(homeDir + "..\\..\\..\\..\\..\\LABHANDHOLDS.str");
 
     Node s0Node = new Node();
     Node labNode = new Node();
