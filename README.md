@@ -11,7 +11,7 @@ Demo: <https://lovetostrike.github.io/nasa-path-finder/demo.html>
 Site: <https://lovetostrike.github.io/nasa-path-finder/>  
 
 #### Phase 2 (Spring 2018)
-Phase 2 Repository README.md adds Windows installation and development instructions.  
+Phase 2 Repository complete Release Notes listed below.
 
 Repository: <https://github.com/xpaddict/nasa-path-finder>  
 
@@ -106,7 +106,7 @@ Core UI functionality can be found in ```/server/src/main/java/com/nasa/```.
 - Display distances between each handrail pair for each path
 - Allow users to click handrail in the 3D Model to select start and end points
 
-## Backlog
+## Remaining Backlog
  1. Add UI and update Route 2 calculation to avoid hazards - hazard path should observe and avoid volume around hazard
  2. Add UI and update calculation accounting for 2 crew members, to deconflict routes
  3. Add UI and update calculation to allow additional waypoint(s)
