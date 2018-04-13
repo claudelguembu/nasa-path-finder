@@ -79,6 +79,7 @@ Core UI functionality can be found in ```/server/src/main/java/com/nasa/```.
 - Added in-line code documentation to core pages and elements  
 - Added User Manual to serve as a single, comprehensive reference
 - Added installation instructions for Windows and Ubuntu
+- Added registration and installation instructions for DOUG Software
 - Added instructions to create and consume new STL files
 
 #### Installation
