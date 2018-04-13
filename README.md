@@ -81,12 +81,12 @@ Core UI functionality can be found in ```/server/src/main/java/com/nasa/```.
 ## Phase 2 - Release Notes
 #### Documentation
 - Added in-line code documentation to core pages and elements  
-- Created User Manual to serve as a single, comprehensive reference
-- Added instructions to Install on Windows and Ubuntu
-- Added instructions to Create and Add new STL files
+- Added User Manual to serve as a single, comprehensive reference
+- Added installation instructions for Windows and Ubuntu
+- Added instructions to create and consume new STL files
 
 #### Installation
-- Added Windows compile capability
+- Added compilation for Windows while keeping Linux compile intact
 - Updated CreateNodes.java to dynamically point to resource files instead of requiring manual installation step
 
 #### User Interface
