@@ -119,5 +119,5 @@ Core UI functionality can be found in ```/server/src/main/java/com/nasa/```.
 10. Strafe/Pan of the 3D Model center to move the entire model directionally
 11. Update Route 3 calculation to specified logic (TBD)
 
-#### Milestone 3 Interface
+## Milestone 3 Interface
 ![Milestone 3 UI Screenshot](/ui-html/images/pathing_one.png)
