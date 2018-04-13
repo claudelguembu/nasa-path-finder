@@ -78,7 +78,7 @@ API code can be found in ```/src/utils/```.
 UI and React components can be found in ```/src/components/```.  
 Core UI functionality can be found in ```/server/src/main/java/com/nasa/```.  
 
-## Phase 2: Milestone 3 - Release Notes
+## Phase 2 - Release Notes
 #### Documentation
 - Added in-line code documentation to core pages and elements  
 - Created User Manual to serve as a single, comprehensive reference
@@ -93,11 +93,30 @@ Core UI functionality can be found in ```/server/src/main/java/com/nasa/```.
 - Updated route colors to increase visibility
 - Moved pathing results to a new "Results" Tab to create more path configuration real estate
 - Created new ISS Model of 92% size which renders smoothly - goal of 100% in Milestone 4
+- Verified functionality of UI to drag and drop new model file
 
 #### Pathing Logic
 - By sponsor request, verified all basic funcitonality
 - Incorporated wingspan selection into each calculated path criteria  
 - Created node graph test of shortest paths vs. software output 
+
+## Tasks in Progress
+- Update model to include all of ISS with complete handrail list
+- Display distances between each handrail pair for each path
+- Allow users to click handrail in the 3D Model to select start and end points
+
+## Backlog
+ 1. Add UI and update Route 2 calculation to avoid hazards - hazard path should observe and avoid volume around hazard
+ 2. Add UI and update calculation accounting for 2 crew members, to deconflict routes
+ 3. Add UI and update calculation to allow additional waypoint(s)
+ 4. Add UI and update calculation to minimize suit rotations and plane changes (translating around corners and edges)
+ 5. Display tether routing
+ 6. Deconflict tethers from two crew
+ 7. Suggest fairleads to avoid hazards
+ 8. Integrate output into DOUG application
+ 9. Display route handrails in different color if they approach wingspan max distance
+10. Strafe/Pan of the 3D Model center to move the entire model directionally
+11. Update Route 3 calculation to specified logic (TBD)
 
 #### Milestone 3 Interface
 ![Milestone 3 UI Screenshot](/ui-html/images/pathing_one.png)
