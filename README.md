@@ -87,6 +87,7 @@ Core UI functionality can be found in ```/server/src/main/java/com/nasa/```.
 - Updated CreateNodes.java to dynamically point to resource files instead of requiring manual installation step
 
 #### User Interface
+- Verified all basic functionality
 - Included new add-ins to provide more defined and visible route illustrations  
 - Updated route colors to increase visibility
 - Moved pathing results to a new "Results" Tab to create additional space on "Controls" Tab
@@ -94,10 +95,9 @@ Core UI functionality can be found in ```/server/src/main/java/com/nasa/```.
 - Verified functionality of UI to drag and drop new model/handrail files
 
 #### Pathing Logic
-- Verified all basic functionality
-- Added distance (in inches) to console window Route output
 - Incorporated wingspan selection into each calculated path criteria  
 - Created node graph test of shortest paths against software output to verify functionality
+- Added distance (in inches) to console window Route output
 
 ## Tasks in Progress
 - Update model to include all of ISS with complete handrail list
