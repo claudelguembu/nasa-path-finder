@@ -76,29 +76,29 @@ Core UI functionality can be found in ```/server/src/main/java/com/nasa/```.
 
 ## Phase 2 - Release Notes
 #### Documentation
-- Added in-line code documentation to core pages and elements  
-- Added User Manual to serve as a single, comprehensive reference
-- Added installation instructions for Windows and Ubuntu
-- Added registration and installation instructions for DOUG Software
-- Added instructions to create and consume new STL files
+- In-line code documentation to core pages and elements  
+- User Manual to serve as a single, comprehensive reference
+- Installation instructions for Windows and Ubuntu
+- Registration and installation instructions for DOUG Software
+- Instructions to create and consume new STL files
 
 #### Installation
-- Added compilation for Windows while keeping Linux compile intact
-- Created "run_nasa" batch file - launches all command and browser windows to execute application
-- Updated CreateNodes.java to dynamically point to resource files instead of requiring manual installation step
+- Compilation for Windows while keeping Linux compile intact
+- Batch file "run_nasa.bat" - launches all command and browser windows to execute application
+- Revised CreateNodes.java to dynamically point to resource files instead of requiring manual installation step
 
 #### User Interface
-- Verified all basic functionality
-- Included new add-ins to provide more defined and visible route illustrations  
+- Verification of all basic functionality
+- New add-ins to provide more defined and visible route illustrations  
 - Updated route colors to increase visibility
 - Moved pathing results to a new "Results" Tab to create additional space on "Controls" Tab
-- Created new ISS Model of 92% size which renders successfully - goal of 100% in Milestone 4
-- Verified functionality of UI to drag and drop new model/handrail files
+- Created ISS Model 92% of full size, which renders successfully
+- Verification of UI functionality to drag and drop new model / handrail files
 
 #### Pathing Logic
-- Incorporated wingspan selection into each calculated path criteria  
-- Created node graph test of shortest paths against software output to verify functionality
-- Added distance (in inches) to console window Route output
+- Wingspan selection factors into each calculated path criteria  
+- Node graph test of shortest paths against software output to verify functionality
+- Distance (in inches) displays in console window Route output
 
 ## Tasks in Progress
 - Update model to include all of ISS with complete handrail list
