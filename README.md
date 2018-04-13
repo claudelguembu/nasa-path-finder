@@ -95,6 +95,7 @@ Core UI functionality can be found in ```/server/src/main/java/com/nasa/```.
 
 #### Pathing Logic
 - Verified all basic functionality
+- Added distance (in inches) to console window Route output
 - Incorporated wingspan selection into each calculated path criteria  
 - Created node graph test of shortest paths against software output to verify functionality
 
