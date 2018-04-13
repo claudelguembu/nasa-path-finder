@@ -132,7 +132,9 @@ public class App extends NanoHTTPD {
         System.out.println("Route " + (i + 1));
         Node nodeLast = null;
         double distance = 0;
-
+        double distanceTotal = 0;
+        
+        
         // Loop through each node to display handrail and calculate distance
         for (Node node : nodes) {
           String nodeId = node.getNodeId();
@@ -142,14 +144,16 @@ public class App extends NanoHTTPD {
           try {
               if (nodeLast != null) {
                 distance = node.node_distance_formula(node, nodeLast);
-                distance = (double) Math.round(distance * 100) / 100;
+                distance = {(double) Math.round(distance * 100)} / 100;
+                distanceTotal += distance;
               }
           }catch(Exception ex){
             System.out.println("Error calculating handrail distance.");
           }
          
           // Output handrail name and distance from last.
-          System.out.println(nodeId + " [" + distance + " in.]");
+          System.out.println(nodeId + " [distance = " + distance + ", total distance = " + distanceTotal + " in.]");
+         
           nodeLast = node;
         }
       }
