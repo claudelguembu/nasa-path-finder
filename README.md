@@ -84,6 +84,7 @@ Core UI functionality can be found in ```/server/src/main/java/com/nasa/```.
 
 #### Installation
 - Added compilation for Windows while keeping Linux compile intact
+- Created "run_nasa" batch file - launches all command and browser windows to execute application
 - Updated CreateNodes.java to dynamically point to resource files instead of requiring manual installation step
 
 #### User Interface
