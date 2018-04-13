@@ -51,11 +51,7 @@ Install Visual Studio <https://www.visualstudio.com/downloads/> (Free community 
    - MAVEN_HOME - Set to location of Maven installation folder  
    - Path - Include new path record "%M2_HOME%\bin"  
 
-2. Source Paths  
-Update path references in ```server/src/main/java/com/nasa/CreateNodes.java ``` to reflect resource paths.  
-If installed to ```C:\``` this path would be: ```C:\nasa-path-finder\server\src\main\resources\```  
-
-3. Yarn Dependencies  
+2. Yarn Dependencies  
 Using command line, download all yarn dependencies by navigating to the root of the project executing:  
 ```yarn```  
 This step may take several minutes.
