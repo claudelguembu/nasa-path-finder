@@ -230,6 +230,8 @@ export default class Controls extends React.Component {
                 max={7}
                 marks={{
                   4: '4 ft',
+                  5: '5 ft',
+                  6: '6 ft',
                   7: '7 ft'
                 }}
               />
@@ -259,7 +261,7 @@ export default class Controls extends React.Component {
             <div className='file-controls'>
               <div className='station-controls'>
                 <p>Drag & drop or click to upload <br /> the station stl file to render...</p>
-                {stationLoading && <div style={{color: 'blue'}}>stationLoading..</div>}
+                {stationLoading && <div style={{color: 'blue'}}>station model is loading, this might take a while...</div>}
                 <Dropzone
                   className="drop-upload"
                   onDrop={this.handleStationFileDrop}
@@ -275,7 +277,7 @@ export default class Controls extends React.Component {
               </div>
               <div className='handrails-controls'>
                 <p>Drag & drop or click to upload <br /> the handrail stl files to render...</p>
-                {handrailLoading && <div style={{color: 'blue'}}>handrail loading..</div>}
+                {handrailLoading && <div style={{color: 'blue'}}>handrail models are loading, this might take a while...</div>}
                 <Dropzone
                   className="drop-upload"
                   onDrop={this.handleHandrailFilesDrop}
