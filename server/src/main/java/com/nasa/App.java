@@ -1,6 +1,7 @@
 package com.nasa;
 
 import java.io.IOException;
+
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import com.google.gson.Gson;
 import fi.iki.elonen.NanoHTTPD.Response;
 // NanoHTTPD < v3.0.0 
 import fi.iki.elonen.NanoHTTPD;
+// April 2018 - George - Added code to Add distances between each handrail pair in each path here and in Container.js 
 // NanoHTTPD > v3.0.0
 //import org.nanohttpd.NanoHTTPD;
     
@@ -124,6 +126,7 @@ public class App extends NanoHTTPD {
 
       // Get shortest path node list
       listOfNodeLists.add(nodes);
+      double distancetotal = 0;
 
       // If the shortest path is not NULL, write the node list with distances to console
       if (nodes == null) {
@@ -139,10 +142,14 @@ public class App extends NanoHTTPD {
           nodeIds.add(nodeId);
           
           // For each handrail after the first, calculate distance between previous and current handrail
+          // For each handrail distance tally up the total distance between the first handrail and the last
+          // Truncate the distancetotal to two decimals
           try {
               if (nodeLast != null) {
                 distance = node.node_distance_formula(node, nodeLast);
-                distance = (double) Math.round(distance * 100) / 100;
+                distance = ((double) Math.round(distance * 100)) / 100;
+                distancetotal += distance;
+                distancetotal = (double) Math.round(distancetotal  * 100) / 100;
               }
           }catch(Exception ex){
             System.out.println("Error calculating handrail distance.");
@@ -163,7 +170,7 @@ public class App extends NanoHTTPD {
           }
         ]
       */
-      resultListsString += "{\"nodes\":" + gson.toJson(nodeIds) + "}";
+      resultListsString += "{\"distancetotal\":" + distancetotal + ",\"nodes\":" + gson.toJson(nodeIds) + "}";
 
       // Add delimiter for each but last
       if (i != thresholds.length - 1) {
