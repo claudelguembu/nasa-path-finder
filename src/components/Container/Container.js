@@ -6,6 +6,8 @@
 // March 2018 - Nikki - 
 // Modified file to improve visibility of routes
 // Added in-line documentation
+// April 2018 - George -
+// Modified file to include distance total in the results tab in the sidebar from App.java
 
 import React from 'react';
 import Renderer from 'components/Renderer/Renderer';
@@ -123,7 +125,8 @@ export default class Container extends React.Component {
         const resultRoutes = json.map((route, i) => ({
           ...route,
           ...routes[i],
-          nodes: route.nodes
+          nodes: route.nodes,
+          distancetotal:route.distancetotal
         }));
         this.setState({
           ...data,
@@ -172,6 +175,7 @@ export default class Container extends React.Component {
                 startHandrail={startHandrail}
                 endHandrail={endHandrail}
                 routes={routes}
+                distancetotal={this.distancetotal}
                 visibleRoutes={visibleRoutes}
                 onRoutesChange={this.handleVisibleRouteChanges}
                 onReset={this.reset}
@@ -182,9 +186,11 @@ export default class Container extends React.Component {
                 <div>
                   <h1 className='results-header'>Results</h1>
                   <div className='results'>
+                  	
                     {routes.map((route, routeI) =>
                       <div key={routeI}>
                         <div>Route {routeI + 1}</div>
+                        <div>Total distance: {route.distancetotal}</div>
                         <ol>
                           {route.nodes.map((node, nodeI) =>
                             <li key={nodeI}>{node}</li>
