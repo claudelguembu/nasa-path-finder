@@ -1,3 +1,8 @@
-#!/bin/bash
-gnome-terminal -x bash -c "cd ../ & yarn start"
+# Project: NASA Path in conjunction with University of Maryland University College
+# @author Nikki Florea
 
+# runs bash script
+#!/bin/bash
+
+# changes directory, runs command, and keeps window open
+gnome-terminal -x bash -c "cd ../ & yarn start"
