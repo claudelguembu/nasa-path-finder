@@ -159,7 +159,7 @@ export default class Container extends React.Component {
           header={
             <div className='header'>
               <div className='logo'><h1>NASA EVA Navigator</h1></div>
-              <div className='sidebar-anchor' onClick={() => this.handleSidebarOpen(!sidebarOpen)}>[Toggle sidebar]</div>
+              <div className='sidebar-anchor' onClick={() => this.handleSidebarOpen(!sidebarOpen)}>[Toggle Sidebar]</div>
             </div>
           }
         />
