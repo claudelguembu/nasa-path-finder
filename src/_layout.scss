@@ -23,21 +23,22 @@ main {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    background: $lightgrey;
-    border-bottom: 4px solid $mediumgrey;
+    background: $secondarylightgrey;
+    border-bottom: 4px solid $darkgrey;
     padding: 7px;
 
     .logo {
-		margin-right: 20px;
+		margin-right: 100px;
 		h1 { margin: 0;}
 	}
 		
 	.mark {
-		width: 100px;
+		width: 70px;
 		height: 60px;
 		background-image: url("nasa_logo.png");
 		background-repeat: no-repeat;
 		background-size: auto 54px;
+
 	}
 
     .sidebar-anchor {
@@ -50,7 +51,7 @@ main {
     position: absolute;
     bottom: 1em;
     right: 2em;
-    border: 1px solid black;
+    border: 3px solid $darkgrey;
     padding: 0.5em;
   }
 }
