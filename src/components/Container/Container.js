@@ -158,7 +158,8 @@ export default class Container extends React.Component {
         <StickyHeader
           header={
             <div className='header'>
-              <div className='logo'><h1>NASA EVA Navigator</h1></div>
+            <div className="mark"></div>
+              <div className='logo'><h1>EVA Navigator</h1></div>
               <div className='sidebar-anchor' onClick={() => this.handleSidebarOpen(!sidebarOpen)}>[Toggle Sidebar]</div>
             </div>
           }
@@ -190,7 +191,7 @@ export default class Container extends React.Component {
                     {routes.map((route, routeI) =>
                       <div key={routeI}>
                         <div>Route {routeI + 1}</div>
-                        <div>Total distance: {route.distancetotal}</div>
+                        <div>Total distance: {route.distancetotal} inches</div>
                         <ol>
                           {route.nodes.map((node, nodeI) =>
                             <li key={nodeI}>{node}</li>

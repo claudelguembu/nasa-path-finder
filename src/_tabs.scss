@@ -3,7 +3,10 @@
 .react-tabs__tab--selected {
 	background: $lightgrey;
 }
+
 .react-tabs__tab-list {
-  background: #878787;
+  padding-left: 10px;
+  padding-top: 5px;
+  background: $mediumgrey;
   color: $lightgrey;
 }
