@@ -233,9 +233,11 @@ export default class Controls extends React.Component {
                   5: '5 ft',
                   6: '6 ft',
                   7: '7 ft'
+                	 
                 }}
               />
-            </div>
+             <br />
+             </div>
            <div className='route-select-control'>
               <strong>Visible Paths</strong>
               <CheckboxGroup className='route-select-container' name="routes" value={visibleRoutes} onChange={onRoutesChange}>
