@@ -44,6 +44,10 @@ export default class Renderer extends React.Component {
     this.state = {
       hoveredHandrail: null
     };
+    this.handleHandrailMouseClick = this.handleHandrailMouseClick.bind(this);
+    this.state = {
+      clickedHandrail: null
+    }
     this.handleWindowResize = this.handleWindowResize.bind(this);
     this.animate = this.animate.bind(this);
     this.processFiles = this.processFiles.bind(this);
@@ -128,6 +132,13 @@ export default class Renderer extends React.Component {
   //handrail mouseover state
   handleHandrailMouseOver(e) {
     this.setState({hoveredHandrail: e.target});
+    //lowPriorityWarning(false, 'Handrail Hovered!');
+    //console.log('test');
+  };
+
+  //handrail mouse click state
+  handleHandrailMouseClick(e) {
+    this.setState({clickedHandrail: e.target});
   };
   
   //create glow material

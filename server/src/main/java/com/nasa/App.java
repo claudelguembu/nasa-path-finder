@@ -96,29 +96,18 @@ public class App extends NanoHTTPD {
     DijkstraPaths dp = new DijkstraPaths();
     ArrayList<List<Node>> listOfNodeLists = new ArrayList<List<Node>>();
     String resultListsString = "";
-    //int[] thresholds = {46, 54, 62};	' JUSW COMMENTED - Replaced with wingspan value calculation below
-    
-    // Set the thresholds using the wingspan input value
-    Double wingspan = Double.parseDouble(rr.getWingspan());
-    
-    // Convert the wingspan value from feet to inches
-    wingspan = wingspan * 12.0;
-    System.out.println("Wingspan : " + rr.getWingspan() + " ft --> " + Double.toString(wingspan) + " in");
-    
-    // Thresholds for paths are the wingspan distance incremented by 8 inches for each path
-    Double[] thresholds = {wingspan, (wingspan + 8.0), (wingspan + 16.0)};	
-    System.out.println("Thresholds: {" + wingspan + ", " + (wingspan + 8.0) + ", " + (wingspan + 16.0) + "}");
+    //int[] thresholds = {46, 54, 62};	' JUSW COMMENTED - Replaced with wingspan value calculation in RouteRequest
     
     System.out.println("Running algorithm...");
 
     // Apply Dijkstra's algorithm to calculate shortest path
-    for (int i = 0; i < thresholds.length; i++) {
+    for (int i = 0; i < rr.getWingspanThresholds().length; i++) {
       List<Node> nodes = new ArrayList<Node>();
       ArrayList<String> nodeIds = new ArrayList<String>();
 
       // Pull list of shortest path nodes, throw exception for any calculation errors
       try {
-        nodes = dp.getShortestPath(rr.getStartHandrail(), rr.getEndHandrail(), rr.getNodes(), thresholds[i]);
+        nodes = dp.getShortestPath(rr.getStartHandrail(), rr.getEndHandrail(), rr.getNodes(), rr.getWingspanThresholds()[i]);
       } catch (Exception e) {
         System.out.println("There was an error running the algorithm");
         e.printStackTrace();
@@ -173,7 +162,7 @@ public class App extends NanoHTTPD {
       resultListsString += "{\"distancetotal\":" + distancetotal + ",\"nodes\":" + gson.toJson(nodeIds) + "}";
 
       // Add delimiter for each but last
-      if (i != thresholds.length - 1) {
+      if (i != rr.getWingspanThresholds().length - 1) {
         resultListsString += ", ";
       }
     }
@@ -187,4 +176,16 @@ public class App extends NanoHTTPD {
 
     return response;
   }
+  
+//  public Double[] getWingspanThresholds(Double wingspan) {   
+//	    // Convert the wingspan value from feet to inches
+//	  	Double wingspanInches = wingspan * 12.0;
+//		System.out.println("Wingspan : " + wingspan + " ft --> " + Double.toString(wingspanInches) + " in");
+//		    
+//		// Thresholds for paths are the wingspan distance incremented by 8 inches for each path
+//		Double[] thresholds = {wingspanInches, (wingspanInches + 8.0), (wingspanInches + 16.0)};	
+//		System.out.println("Thresholds: {" + wingspanInches + ", " + (wingspanInches + 8.0) + ", " + (wingspanInches + 16.0) + "}");
+//		
+//		return thresholds;
+//	  }
 }
