@@ -116,7 +116,8 @@ Core UI functionality can be found in ```/server/src/main/java/com/nasa/```.
  8. Integrate output into DOUG application
  9. Display route handrails in different color if they approach wingspan max distance
 10. Strafe/Pan of the 3D Model center to move the entire model directionally
-11. Update Route 3 calculation to specified logic (TBD)
+11. Incorporate geometric shape of modules into distance calculations
+12. Update Route 3 calculation to specified logic (TBD)
 
 ## Milestone 3 Interface
 ![Milestone 3 UI Screenshot](/ui-html/images/pathing_one.png)
