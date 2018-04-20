@@ -14,6 +14,18 @@ public class RouteRequest {
     this.nodes = nodes;
     this.wingspan = wingspan;
   }
+  
+  public Double[] getWingspanThresholds() {   	  
+	  // Convert the wingspan value from feet to inches
+	  	Double wingspanInches = Double.parseDouble(this.wingspan) * 12.0;
+		System.out.println("Wingspan : " + wingspan + " ft --> " + Double.toString(wingspanInches) + " in");
+		    
+		// Thresholds for paths are the wingspan distance incremented by 8 inches for each path
+		Double[] thresholds = {wingspanInches, (wingspanInches + 8.0), (wingspanInches + 16.0)};	
+		System.out.println("Thresholds: {" + wingspanInches + ", " + (wingspanInches + 8.0) + ", " + (wingspanInches + 16.0) + "}");
+		
+		return thresholds;
+  }
 
   public void setStartHandrail(String startHandrail) {
     this.startHandrail = startHandrail;

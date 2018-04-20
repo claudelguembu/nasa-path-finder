@@ -44,6 +44,10 @@ export default class Renderer extends React.Component {
     this.state = {
       hoveredHandrail: null
     };
+    this.handleHandrailMouseClick = this.handleHandrailMouseClick.bind(this);
+    this.state = {
+      clickedHandrail: null
+    }
     this.handleWindowResize = this.handleWindowResize.bind(this);
     this.animate = this.animate.bind(this);
     this.processFiles = this.processFiles.bind(this);
@@ -58,6 +62,8 @@ export default class Renderer extends React.Component {
 
   // 
   componentDidMount() {
+	// addition for load progress ------------------------------- 1 line
+	setTimeout(() => this.setState({ loading: false }), 1500); // simulates an async action, and hides the spinner
 	// create constants and set values
 	const {
 		// -- set background and lighting effect values here --
@@ -128,6 +134,13 @@ export default class Renderer extends React.Component {
   //handrail mouseover state
   handleHandrailMouseOver(e) {
     this.setState({hoveredHandrail: e.target});
+    //lowPriorityWarning(false, 'Handrail Hovered!');
+    //console.log('test');
+  };
+
+  //handrail mouse click state
+  handleHandrailMouseClick(e) {
+    this.setState({clickedHandrail: e.target});
   };
   
   //create glow material
@@ -359,8 +372,14 @@ export default class Renderer extends React.Component {
   //render div for state of hovered handrails
   render() {
 	  const {
+		  // addition for load progress ------------------------------- 1 line
+		  loading,
 		  hoveredHandrail
 	  } = this.state;
+	  // addition for load progress ------------------------------- 3 lines
+	  if(loading) { // if your component doesn't have to wait for an async action, remove this block 
+	      return null; // render null when app is not ready
+	  }
 	  return (
 			  <div>
 			  <div className='info-panel'>
