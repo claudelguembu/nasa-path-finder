@@ -14,7 +14,7 @@ Site: <https://lovetostrike.github.io/nasa-path-finder/>
 Phase 2 Repository complete Release Notes listed below.
 
 Repository: <https://github.com/xpaddict/nasa-path-finder>  
-User Manual Documentation: ![Link to Document](/docs/User_Manual.docx)
+User Manual Documentation: ```/docs/User_Manual.docx/``` 
 
 ## Dependencies
 #### Front-End
