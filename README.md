@@ -15,6 +15,7 @@ Phase 2 Repository complete Release Notes listed below.
 
 Repository: <https://github.com/xpaddict/nasa-path-finder>  
 User Manual Documentation: ```/docs/User_Manual.docx``` 
+Lessons Learned: ```/docs/Lessons_Learned.doc``` 
 
 ## Dependencies
 #### Front-End
@@ -84,7 +85,8 @@ Core UI functionality can be found in ```/server/src/main/java/com/nasa/```.
 
 #### Installation
 - Compilation for Windows while keeping Linux compile intact
-- Batch file "run_nasa.bat" - launches all command and browser windows to execute application
+- Windows Batch file "run_nasa.bat" - launches all command and browser windows to execute application
+- Ubuntu Bash file ".run_nasa" - launches software from terminal window
 - Revised CreateNodes.java to dynamically point to resource files instead of requiring manual installation step
 
 #### User Interface
@@ -96,9 +98,11 @@ Core UI functionality can be found in ```/server/src/main/java/com/nasa/```.
 - Verification of UI functionality to drag and drop new model / handrail files
 
 #### Pathing Logic
-- Wingspan selection factors into each calculated path criteria  
+- Wingspan selection factors into each calculated path criteria 
+- Wingspan choice prints in console window
+- Wingspan thresholds print in console window 
 - Node graph test of shortest paths against software output to verify functionality
-- Distance (in inches) displays in console window Route output
+- Total Distance (in inches) displays on Path Results tab and Console window
 
 ## Tasks in Progress
 - Update model to include all of ISS with complete handrail list
