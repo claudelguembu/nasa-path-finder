@@ -1,127 +1,139 @@
-## Project Overview
-Using Dijkstra's algorithm, find the most efficient path of handrails along the exterior of the ISS when navigating from Point A to Point B.  A 3D Model
-of the ISS is used to select, configure, and highlight calculated path.  Astronaut wingspan, additional intermediate points, and hazards should be taken into 
-consideration when calculating the optimal path(s).  
+# EVANav
+Navigation for space walks
 
-#### Phase 1 (Fall 2017)
-Phase 1 Repository README.md details Linux installation instructions.  
+## GENERAL CONCEPT
+Imagine using Google Maps and Navigation, but as a space walker on the Space Station.
 
-Repository: <https://github.com/lovetostrike/nasa-path-finder>  
-Demo: <https://lovetostrike.github.io/nasa-path-finder/demo.html>  
-Site: <https://lovetostrike.github.io/nasa-path-finder/>  
+Flight controllers and astronauts at NASA use a 3D model of the International Space Station (ISS) to aid in the planning and execution of ExtraVehicular Activity (EVA, or "space walks"). This model (named "DOUG") includes all of the modules and hardware on ISS as well as each handrail used by an EVA crew member to aid in translation. Visit the [NASA Software](https://software.nasa.gov/software/MSC-23586-1) site to request a copy of the DOUG application.
 
-#### Phase 2 (Spring 2018)
-Phase 2 Repository complete Release Notes listed below.
+Determining the "best" path from one location on ISS to another is currently done by trained, experienced humans. This project is to use computing power to aid those humans.
 
-Repository: <https://github.com/xpaddict/nasa-path-finder>  
-User Manual Documentation: ```/docs/User_Manual.docx```  
-Lessons Learned: ```/docs/Lessons_Learned.doc``` 
+The user interface should allow for selection of start and end points, each different handrails. The user may also choose options for the route. The default will be the shortest route, but the user may want the route that encounters the least amount of hazards (sharp edges, radiating hardware, articulating structures, shatterable materials, etc), a route that deconflicts their partner's route (EVAs are performed by a pair of crew), a route including one or more waypoints in the middle of the route, and/or a route with the fewest number of rotations and plane changes. The user may also choose to enter the value for the crew member's wingspan. This is important in places where handrails are spaced farther apart than some people's reach limit. 
 
-## Dependencies
-#### Front-End
-Jest: 		Test Execution  
-Node.js: 	Package Management  
-React.js: 	UI Rendering Library  
-Three.js: 	3D Rendering  
-Webpack:	Module Management  
-Yarn:		Package Management  
+The user may also want to consider Safety Tether routing. Each of the two crew members wears a Safety Tether, a coiled spool of braided steel cable, that connects them to a point on ISS. Usually the anchor hook is attached to a point just outside of the EV hatch. As the two crew members translate around structure, their tether might drag across articulating structures or delicate materials. EVA planners must guide the crew members how to fairlead their tether at points to keep their tethers from snagging on the wrong places.
 
-#### Back-End
-AJAX: 		Asynchronous Algorithm Display  
-Java:		Software Platform  
+This algorithm will consider all the inputs to calculate the ideal route and output the results. The basic output should be a sequential list of handrail numbers and the distance between each pair of handrails along the path. A long term goal is to output the results in a way that DOUG can read so the path can be highlighted and centered in the viewing frame.
 
-#### Supplemental Tools
-CircleCI: 	Continuous Integration  
-Docker: 	Web Building and Packaging  
-Eletron: 	Build Management  
-GitHub:		Code Repository  
+## EXAMPLE OF ALTERNATE ROUTES
+Suppose an EV crew member is on the starboard/forward edge of the Lab and needs to translate to S0 forward. The two images below show alternate paths. One may be more direct, but it forces the crew member to translate near sensitive hardware. The other path goes around the sensitive hardware, but may take longer.
 
-## Installation and Configuration
+In this path, the crew member must maneuver around the sensitive hardware highlighted in yellow:
+![Path 2](images/Lab-to-S0-path2.png)
 
-#### Dependency Installation
-Install Node.js <https://nodejs.org/en/>  
-Install Yarn <https://yarnpkg.com/en/docs/install>  
-Install/Update Java 8 <https://www.java.com/en/download/>  
-Install Maven (Apache Maven Project) <https://maven.apache.org/>  
-Install Python <https://www.python.org/downloads/>  
-Install Visual Studio <https://www.visualstudio.com/downloads/> (Free community version available)  
+In this path, the crew member is routed away from the sensitive hardware, but the path is longer:
+![Path 1](images/Lab-to-S0-path1.png)
 
-#### Configuration
-1. Environment Variables: Add or Update Windows Environment Paths to include the following...   
-   - JAVA_HOME - Set to Java 8 JDK installation folder  
-   - M2_HOME - Set to location of Maven installation folder  
-   - MAVEN_HOME - Set to location of Maven installation folder  
-   - Path - Include new path record "%M2_HOME%\bin"  
+## REQUIREMENTS & ASSUMPTIONS
+1. For this project, assume only handrails can be used to aid in translation (though it is common for EV crew to use structural beams in places where handrails are sparse).
+1. UI should include start and end points
+1. UI should allow optional waypoints in the middle of the route
+1. UI should allow for two simultaneous routes (one for each crew member)
+1. UI should allow options for route determination
+   1. Avoid crew hazards (things that hurt the crew or their suit)
+   1. Avoid hardware hazards (things that could by hurt by the crew)
+   1. Deconflict partner's route (don't use the same handrails)
+   1. Deconflict safety tethers from crossing each other and from crossing hazards
+   1. Minimize rotations and plane changes (movement from one face to another around a module)
+   1. Field to enter crew member's wingspan
+1. Output should include sequential list of handrail numbers, including distance between each pair of handrails
+1. Output should be in a format readable by DOUG
+1. Output should optionally suggest safety tether fairlead locations
 
-2. Yarn Dependencies  
-Using command line, download all yarn dependencies by navigating to the root of the project executing:  
-```yarn```  
-This step may take several minutes.
+## OUTPUT FORMAT
+Ideally the model should be represented using nodes on a graph (a scene-graph). Each node in the graph would contain a transformation of the frame that its model and child nodes would be relative to.  The following is a sample of how a scene-graph for a simple camera model could be defined and is actually a format that DOUG can read.  In DOUG all units are in inches and degrees.
 
-## Execution
-NASA Path Finder now supports both Linux and Windows execution, the commands to compile and start the application are slightly different
+The following is a sample:
 
-#### Linux
-1. In first command line window, navigate to root of the project directory and execute: ```yarn start```  
-2. In a second command line window, navigate to root of the project directory and execute: ```yarn compile:start:server```  
-3. Navigate to <http://localhost:3000> or <http://127.0.0.1:3000>
+    camera_A
+    SYSTEM
+    0 0 0
+    0 0 0
+    NULL
+        camera_pan_A
+        camera_pan_model.stl
+        0 0 0
+        0 0 0
+        camera_A
+            camera_tilt_A
+            camera_model.stl
+            0 0 2.0
+            0 0 0
+            camera_pan_A
 
-#### Windows
-1. In first command line window, navigate to root of the project directory and execute: ```yarn start```  
-2. In a second command line window, navigate to root of the project directory and execute: ```yarn compilewin:start:server```  
-3. Navigate to <http://localhost:3000> or <http://127.0.0.1:3000>
+The indentation is not required but is included above to show the relationship between the nodes.
 
-## Development Structure
-API code can be found in ```/src/utils/```.  
-UI and React components can be found in ```/src/components/```.  
-Core UI functionality can be found in ```/server/src/main/java/com/nasa/```.  
+DOUG uses a right-handed coordinate system where <pitch> is rotation about the 'Y-axis', <yaw> is rotation about the 'Z-axis' and <roll> is about the 'X-axis' and is typically applied in Pitch-Yaw-Roll order.
 
-## Phase 2 - Release Notes
-#### Documentation
-- In-line code documentation to core pages and elements  
-- User Manual to serve as a single, comprehensive reference
-- Installation instructions for Windows and Ubuntu
-- Registration and installation instructions for DOUG Software
+Each node is represented with 5 consecutive lines of text in the file with the following format.
 
-#### Installation
-- Compilation for Windows while keeping Linux compile intact
-- Windows Batch file "run_nasa.bat" - launches all command and browser windows to execute application
-- Ubuntu Bash file ".run_nasa" - launches software from terminal window
-- Revised CreateNodes.java to dynamically point to resource files instead of requiring manual installation step
+    <unique_node_name>
+    <geometry_file_name> or "SYSTEM"
+    <x> <y> <z>
+    <pitch> <yaw> <roll>
+    <parent_node_name> or "NULL"
 
-#### User Interface
-- Verification of all basic functionality
-- New add-ins to provide more defined and visible route illustrations  
-- Updated route colors to increase visibility
-- Moved pathing results to a new "Results" Tab to create additional space on "Controls" Tab
-- Created ISS Model 92% of full size, which renders successfully
-- Verification of UI functionality to drag and drop new model / handrail files
+## SAMPLE DATA
+* LAB_S0_geometry.stl     - Contains a text based data format of the geometry of the US Lab and S0 truss of the ISS
+* Handrails/
+  * LABHANDHOLDS/           - Contains Lab handrails as STL files
+  * LABHANDHOLDS.str        - Struct file containing xyz/PYR of each handrail on Lab
+  * S0HANDHOLDS/            - Contains S0 truss handrails as STL files
+  * S0HANDHOLDS.str         - Struct file containing xyz/PYR of each handrail on S0 truss
 
-#### Pathing Logic
-- Wingspan selection factors into each calculated path criteria 
-- Wingspan choice prints in console window
-- Wingspan thresholds print in console window 
-- Node graph test of shortest paths against software output to verify functionality
-- Total Distance (in inches) displays on Path Results tab and Console window
+The .str files contain the location and orientation information for each handrail, saved with 5 lines.
 
-## Tasks in Progress
-- Update model to include all of ISS with complete handrail list
-- Display distances between each handrail pair for each path
-- Allow users to click handrail in the 3D Model to select start and end points
+* NodeName
+* Modelname
+* x y z
+* pitch yaw roll
+* ParentNode
 
-## Remaining Backlog
- 1. Add UI and update Route 2 calculation to avoid hazards - hazard path should observe and avoid volume around hazard
- 2. Add UI and update calculation accounting for 2 crew members, to deconflict routes
- 3. Add UI and update calculation to allow additional waypoint(s)
- 4. Add UI and update calculation to minimize suit rotations and plane changes (translating around corners and edges)
- 5. Display tether routing
- 6. Deconflict tethers from two crew
- 7. Suggest fairleads to avoid hazards
- 8. Integrate output into DOUG application
- 9. Display route handrails in different color if they approach wingspan max distance
-10. Strafe/Pan of the 3D Model center to move the entire model directionally
-11. Incorporate geometric shape of modules into distance calculations
-12. Update Route 3 calculation to specified logic (TBD)
+## RELATED WORK
+See [ISSMaps](https://github.com/darenwelsh/ISSMaps), my first attempt at this. I didn't get very far, but it may be helpful.
 
-## Milestone 3 Interface
-![Milestone 3 UI Screenshot](/ui-html/images/pathing_one.png)
+### Phase 1 - Fall 2017 Semester
+See [NASA Path Finder](https://github.com/lovetostrike/nasa-path-finder), a project by graduate students in the University of Maryland University College Software Engineering (SWEN 670) course to implement this idea (fall 2017 semester). 
+
+This group accomplished the following aspects:
+* Back end to calculate shortest handrail paths
+* Front end accessed via localhost:3000
+* Dropdowns for start/end points
+* Slider for wingspan (I don't think this is factored into the calculation yet)
+* Selection boxes for 3 possible routes
+* 3d model visualization of ISS model with routes
+* Handrail list (does not include distance between each handrail pair)
+* Ability to upload model files (I have not tested this)
+
+Here is a screenshot of the front end as of fall 2017:
+![Demo](images/Demo.png)
+
+
+### Phase 2
+See the [Phase 2 repo](https://github.com/xpaddict/nasa-path-finder).
+
+### Forward work
+Reference [open issues](https://github.com/darenwelsh/EVANav/issues) for bugs and feature requests that might not be listed below.
+
+Here is a non-exhaustive list of remaining work:
+1. Verify basic functionality
+1. Update model to include all of ISS (data is provided in [0.2.0 release](https://github.com/darenwelsh/EVANav/releases/tag/0.2.0))
+1. Provide a legend/key on how to maneuver ISS
+1. Can the movement controls be improved to allow for 3-axis movement and 3-axis rotation?
+1. Add extra highlighting or some halo effect to make start and end points more obvious in 3d model
+1. Use the wingspan slider input to effect the potential paths calculated
+1. Add distances between each handrail pair in each path
+1. Add indications of when axial direction and plane changes (e.g. from port to zenith or from face 1 to face 2)
+1. Allow users to click a handrail in the 3d model to select start and end points
+1. Add UI and update calculation based on volume and orientation of space suit (maybe display tube illustrating path traversed by suit extremeties)
+1. Add UI and update calculation to avoid hazards
+1. Add UI and update calculation accounting for 2 crew members, to deconflict routes
+1. Add UI and update calculation to allow additional waypoint(s)
+1. Add UI and update calculation to minimize suit rotations and plane changes (translating around corners and edges)
+1. Display tether routing
+1. Deconflict tethers from two crew
+1. Suggest minimal fairleads to avoid hazards
+1. Integrate output into DOUG application 
+1. Verify functionality of UI to drag and drop new model file
+1. Add UI allowing user to specify starboard and port SARJ angles (and other articulating structures?)
+1. Add UI allowing user to specify location of MT and CETA Carts
+1. Add UI option to choose optimal path for 1G environment (in the NBL) instead of optimal path for microgravity
