@@ -25,9 +25,12 @@ export default class Container extends React.Component {
     //set route colors
     this.defaultRoutes = [
       // -- set route color values here --
-      {value: 1, color: '#ff00cb', nodes: []}, // magenta
-      {value: 2, color: '#07d10b', nodes: []}, // green
-      {value: 3, color: '#ffb200', nodes: []}, // gold
+//      {value: 1, color: '#ff00cb', nodes: []}, // magenta		PHASE 3 MOD Lincoln Powell/lpowell25@student.umuc.edu 7/1/2018 Commenting out route 1 color to magenta
+      {value: 1, color: '#1E90FF', nodes: []}, // blue			PHASE 3 MOD Lincoln Powell/lpowell25@student.umuc.edu 7/1/2018 Change route 1 color to blue
+//      {value: 2, color: '#07d10b', nodes: []}, // green		PHASE 3 MOD Lincoln Powell/lpowell25@student.umuc.edu 7/1/2018 Commenting out route 2 color to green
+      {value: 2, color: '#FFFF00', nodes: []}, // yellow		PHASE 3 MOD Lincoln Powell/lpowell25@student.umuc.edu 7/1/2018 Change route 2 color to yellow
+//      {value: 3, color: '#ffb200', nodes: []}, // gold		PHASE 3 MOD Lincoln Powell/lpowell25@student.umuc.edu 7/1/2018 Commenting out route 3 color to gold
+      {value: 3, color: '#FF00FF', nodes: []}, // magenta		PHASE 3 MOD Lincoln Powell/lpowell25@student.umuc.edu 7/1/2018 Change route 3 color to magenta
     ];
     
     // handle state changes
