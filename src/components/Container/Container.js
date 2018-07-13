@@ -8,6 +8,8 @@
 // Added in-line documentation
 // April 2018 - George -
 // Modified file to include distance total in the results tab in the sidebar from App.java
+// July 2018 - Deepali -
+// Modified file to change bullet numbers to dots
 
 import React from 'react';
 import Renderer from 'components/Renderer/Renderer';
@@ -195,11 +197,11 @@ export default class Container extends React.Component {
                       <div key={routeI}>
                         <div>Route {routeI + 1}</div>
                         <div>Total distance: {route.distancetotal} inches</div>
-                        <ol>
+                        <ul>
                           {route.nodes.map((node, nodeI) =>
                             <li key={nodeI}>{node}</li>
                           )}
-                        </ol>
+                        </ul>
                       </div>
                     )}
                   </div>
