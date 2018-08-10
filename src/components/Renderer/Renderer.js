@@ -88,7 +88,7 @@ export default class Renderer extends React.Component {
     
     //start position of camera (left-right, up-down, zoom)
     camera.position.set(-1, 0, 2.3);
-    this.cameraTarget = new THREE.Vector3(0, 0, 0);
+    this.cameraTarget = new THREE.Vector3(-0.25, 0, 0);
     
     // create scene object
     this.scene = new THREE.Scene();
