@@ -86,9 +86,12 @@ export default class Renderer extends React.Component {
       Detector.addGetWebGLMessage();
     }
     
+//    this.scene.add(camera);
+    
     //start position of camera (left-right, up-down, zoom)
     camera.position.set(-1, 0, 2.3);
-    this.cameraTarget = new THREE.Vector3(0, 0, 0);
+//    this.cameraTarget = new THREE.Vector3(0, 0, 0);
+    this.cameraTarget = new THREE.Vector3(-0.25, 0, 0);
     
     // create scene object
     this.scene = new THREE.Scene();
@@ -96,6 +99,7 @@ export default class Renderer extends React.Component {
 
     // mouse controls to rotate/zoom the model
     new OrbitControls(camera);
+    
     
     // create lights
     this.scene.add(new THREE.HemisphereLight(hemisphere_sky_color, hemisphere_ground_color, hemisphere_intensity));
