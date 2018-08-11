@@ -11,6 +11,7 @@
 
 import React from 'react';
 import 'utils/stlLoader';
+import 'utils/TrackballControls';
 import {
   loadMeshFromFile,
   positionModelsBasedOnStrFile,
@@ -20,21 +21,29 @@ import {
 } from 'utils/nodeProcessor/nodeProcessor';
 import Detector from 'utils/detector';
 import Stats from 'stats-js';
-import OrbitControlsFactory from 'three-orbit-controls';
 import PropTypes from 'prop-types';
-
-let OrbitControls = OrbitControlsFactory(THREE);
 
 // PHASE 3 MOD Lincoln Powell/lpowell25@student.umuc.edu 8/3/2018
 // Declare and initialize Raycaster object.
 var raycaster = new THREE.Raycaster();
 
+//PHASE 3 MOD Lincoln Powell/lpowell25@student.umuc.edu 8/3/2018
 // Declare and initialize Vector2 object representing the 2D vector of a mouse cursor.
 var mouse = new THREE.Vector2();
 
+//PHASE 3 MOD Lincoln Powell/lpowell25@student.umuc.edu 8/3/2018
 // Declare and initialize PerspectiveCamera object.
 var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.0001, 5000);
 
+//PHASE 3 MOD Lincoln Powell/lpowell25@student.umuc.edu 8/10/2018
+// Declare and initialize TrackballControls object.
+var controls = new THREE.TrackballControls(camera);
+
+//PHASE 3 MOD Lincoln Powell/lpowell25@student.umuc.edu 8/10/2018
+// Declare and initialize Clock object.
+var clock = new THREE.Clock();
+
+//PHASE 3 MOD Lincoln Powell/lpowell25@student.umuc.edu 8/3/2018
 // Declare empty array for handrail meshes used to raycast the mouse cursor to each handrail on the model.
 var handrailMeshes = [];
 
@@ -88,14 +97,18 @@ export default class Renderer extends React.Component {
     
     //start position of camera (left-right, up-down, zoom)
     camera.position.set(-1, 0, 2.3);
-    this.cameraTarget = new THREE.Vector3(-0.25, 0, 0);
+    this.cameraTarget = new THREE.Vector3(-2, 0, 0);
     
     // create scene object
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(scene_bg_color);
 
+    //PHASE 3 MOD Lincoln Powell/lpowell25@student.umuc.edu 8/10/2018
     // mouse controls to rotate/zoom the model
-    new OrbitControls(camera);
+    controls.rotateSpeed = 3.0;
+    controls.zoomSpeed = 3.0;
+    controls.panSpeed = 3.0;
+    controls.staticMoving = true;
     
     // create lights
     this.scene.add(new THREE.HemisphereLight(hemisphere_sky_color, hemisphere_ground_color, hemisphere_intensity));
@@ -426,10 +439,12 @@ export default class Renderer extends React.Component {
   
   //animate scene movement
   animate() {
-	  requestAnimationFrame(this.animate);
-	  camera.lookAt(this.cameraTarget);
-	  this.renderer.render(this.scene, camera);
 	  this.stats.update();
+	  var delta = clock.getDelta();
+	  controls.update(delta);
+	  requestAnimationFrame(this.animate);
+	  this.renderer.render(this.scene, camera);
+	  
   }
 
   //render div for state of hovered handrails
