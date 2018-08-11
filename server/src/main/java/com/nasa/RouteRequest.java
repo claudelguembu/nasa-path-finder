@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 //August 2018 - Deepali Varma- 
-//Added modifications in Dijkstra Alorithim paths to use the wingspan slider input to effect the potential paths calculated
+//Added modifications in Dijkstra Algorithm paths to use the wingspan slider input to effect the potential paths calculated
 
 public class RouteRequest {
 	private String startHandrail;
