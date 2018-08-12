@@ -91,7 +91,7 @@ export default class Container extends React.Component {
   }
 
   switchCrewView(type) {
-    console.log({ type });
+    //console.log({ type });
     if (type == 'CrewOne') {
       this.setState({ crewOne: true, crewTwo: false });
     }
@@ -154,7 +154,7 @@ export default class Container extends React.Component {
    * Finally, the Renderer.js componentDidUpdate() function is called, coloring the start or end handrail appropriately.
    */
   handleStartEndHandrailsChanged(startOrEnd, handrail, clickedHandrail = false, crewMemberSelected) {
-    console.log("first");
+    //console.log("first");
     if (clickedHandrail) {
       handrail = { value: handrail.name.replace(".stl", "") }
     }
@@ -205,7 +205,7 @@ export default class Container extends React.Component {
 
   // create a submit handler for crew member 2
   handleSecondSubmit(data) {
-    debugger;
+    //debugger;
     const { routesSecond } = this.state;
     fetch(window.location.protocol + '//' + window.location.hostname + ':8080', {
       method: 'post',
@@ -385,8 +385,6 @@ export default class Container extends React.Component {
             handleStartEndHandrailsChanged={this.handleStartEndHandrailsChanged}
 
           />
-
-
         </Sidebar>
       </div>
     );
