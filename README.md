@@ -130,12 +130,12 @@ Here is a non-exhaustive list of remaining work:
 1. Verify basic functionality (**Note**: _This is a reoccuring item required for all project teams_)
 1. Update model to include all of ISS (data is provided in [0.2.0 release](https://github.com/darenwelsh/EVANav/releases/tag/0.2.0))
 1. Provide a legend/key on how to maneuver ISS
-~1. Can the movement controls be improved to allow for 3-axis movement and 3-axis rotation?~
-~1. Add extra highlighting or some halo effect to make start and end points more obvious in 3d model~
-~1. Use the wingspan slider input to effect the potential paths calculated~
-~1. Add distances between each handrail pair in each path~
+1. ~Can the movement controls be improved to allow for 3-axis movement and 3-axis rotation?~
+1. ~Add extra highlighting or some halo effect to make start and end points more obvious in 3d model~
+1. ~Use the wingspan slider input to effect the potential paths calculated~
+1. ~Add distances between each handrail pair in each path~
 1. Add indications of when axial direction and plane changes (e.g. from port to zenith or from face 1 to face 2)
-~1. Allow users to click a handrail in the 3d model to select start and end points~
+1. ~Allow users to click a handrail in the 3d model to select start and end points~
 1. Add UI and update calculation based on volume and orientation of space suit (maybe display tube illustrating path traversed by suit extremeties)
 1. Add UI and update calculation to avoid hazards
 1. Add UI and update calculation accounting for 2 crew members, to deconflict routes
