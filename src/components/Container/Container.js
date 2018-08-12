@@ -45,6 +45,7 @@ export default class Container extends React.Component {
       endHandrail: null,
       endHandrailSecond: null,
       routes: this.defaultRoutes,
+      routesSecond: this.defaultRoutes,
       visibleRoutes: [1, 2, 3],
       visibleRoutesSecond: [1, 2, 3],
       routesLoaded: false,
@@ -85,6 +86,7 @@ export default class Container extends React.Component {
       endHandrailSecond: null,
       wingspanSecond: 4,
       routes: this.defaultRoutes,
+      routesSecond: this.defaultRoutes,
     });
   }
 
@@ -203,7 +205,8 @@ export default class Container extends React.Component {
 
   // create a submit handler for crew member 2
   handleSecondSubmit(data) {
-    const { routes } = this.state;
+    debugger;
+    const { routesSecond } = this.state;
     fetch(window.location.protocol + '//' + window.location.hostname + ':8080', {
       method: 'post',
       body: JSON.stringify({
@@ -211,20 +214,20 @@ export default class Container extends React.Component {
         endHandrail: data.endHandrailSecond ? data.endHandrailSecond : "",
         nodes: this.handrails,
         wingspan: data.wingspanSecond.toString(),
-        previousRoutes: this.state.routes //passing previous routes
+        previousRoutes: this.state.routesSecond //passing previous routes
       })
     })
       .then(resp => resp.json())
       .then(json => {
         const resultRoutes = json.map((route, i) => ({
           ...route,
-          ...routes[i],
+          ...routesSecond[i],
           nodes: route.nodes,
           distancetotal: route.distancetotal
         }));
         this.setState({
           ...data,
-          routes: resultRoutes,
+          routesSecond: resultRoutes,
           routesLoaded: true
         });
       })
@@ -242,6 +245,7 @@ export default class Container extends React.Component {
       startHandrailSecond,
       endHandrailSecond,
       routes,
+      routesSecond,
       visibleRoutes,
       visibleRoutesSecond,
       routesLoaded,
@@ -270,7 +274,7 @@ export default class Container extends React.Component {
                 onHandrailFilesLoad={this.handleHandrailFilesLoad}
                 onStrFilesLoad={this.handleStrFilesLoad}
                 onStartEndHandrailsChange={this.handleStartEndHandrailsChanged}
-                onSecondStartEndHandrailsChange={this.handleSecondStartEndHandrailsChanged}
+               // onSecondStartEndHandrailsChange={this.handleSecondStartEndHandrailsChanged}
                 onSubmit={this.handleSubmit}
                 onSecondSumbit={this.handleSecondSubmit}
                 startHandrail={startHandrail}
@@ -278,6 +282,7 @@ export default class Container extends React.Component {
                 endHandrail={endHandrail}
                 endHandrailSecond={endHandrailSecond}
                 routes={routes}
+                routesSecond={routesSecond}
                 distancetotal={this.distancetotal}
                 visibleRoutes={visibleRoutes}
                 visibleRoutesSecond={visibleRoutesSecond}
@@ -292,20 +297,46 @@ export default class Container extends React.Component {
               />
               {routesLoaded &&
                 <div>
-                  <h1 className='results-header'>Results</h1>
+                  <h1 className='results-header'>Route Results</h1>
                   <div className='results'>
-
-                    {routes.map((route, routeI) =>
-                      <div key={routeI}>
-                        <div>Route {routeI + 1}</div>
-                        <div>Total distance: {route.distancetotal} inches</div>
-                        <ul>
-                          {route.nodes.map((node, nodeI) =>
-                            <li key={nodeI}>{node}</li>
-                          )}
-                        </ul>
-                      </div>
-                    )}
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td className='td-crew1-results'>
+                          <div className='crew1-results'>
+                            <h3 className='crew1-results-header'>1. Crew 1 Route Results</h3>
+                              {routes.map((route, routeI) =>
+                                <div key={routeI}>
+                                  <div>Route {routeI + 1}</div>
+                                  <div>Total distance: {route.distancetotal} inches</div>
+                                  <ul>
+                                    {route.nodes.map((node, nodeI) =>
+                                      <li key={nodeI}>{node}</li>
+                                    )}
+                                  </ul>
+                                </div>
+                              )}
+                            </div>
+                          </td>
+                          <td className='td-crew2-results'>
+                            <div className='crew2-results'>
+                              <h3 className='crew2-results-header'>2. Crew 2 Route Results</h3>
+                              {routesSecond.map((route, routeI) =>
+                                <div key={routeI}>
+                                  <div>Route {routeI + 1}</div>
+                                  <div>Total distance: {route.distancetotal} inches</div>
+                                  <ul>
+                                    {route.nodes.map((node, nodeI) =>
+                                      <li key={nodeI}>{node}</li>
+                                    )}
+                                  </ul>
+                                </div>
+                              )}
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               }
@@ -345,7 +376,9 @@ export default class Container extends React.Component {
             endHandrailSecond={endHandrailSecond}
             crewMemberSelected={this.state.crewOne ? 1 : 2}
             routes={routes.filter(r => visibleRoutes.includes(r.value)).reverse()}
+            routesSecond={routesSecond.filter(r => visibleRoutesSecond.includes(r.value)).reverse()}      
             wingspan={wingspan}
+            wingspanSecond={wingspanSecond}
 
             // PHASE 3 MOD Lincoln Powell/lpowell25@student.umuc.edu 8/9/2018
             // Add handleStartEndHandrailsChanged to Renderer.js as property

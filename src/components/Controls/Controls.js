@@ -186,7 +186,7 @@ export default class Controls extends React.Component {
   }
 
   secondSubmit() {
-    debugger;
+    //debugger;
     const {
       startHandrailSecond,
       endHandrailSecond,
@@ -215,7 +215,7 @@ export default class Controls extends React.Component {
       startHandrailSecond,
       endHandrailSecond,
       onStartEndHandrailsChange,
-      onSecondStartEndHandrailsChange,
+      //onSecondStartEndHandrailsChange,
       onRoutesChange,
       onSecondRoutesChange,
       onReset,
@@ -300,14 +300,14 @@ export default class Controls extends React.Component {
                       placeholder='Select start handrail...'
                       value={startHandrailSecond}
                       options={this.createHandrailOptions()}
-                      onChange={option => onSecondStartEndHandrailsChange('start', option)}
+                      onChange={option => onStartEndHandrailsChange('start', option)}
                     />
                     <Select
                       name='endHandrail'
                       placeholder='Select end handrail...'
                       value={endHandrailSecond}
                       options={this.createHandrailOptions()}
-                      onChange={option => onSecondStartEndHandrailsChange('end', option)}
+                      onChange={option => onStartEndHandrailsChange('end', option)}
                     />
                   </div>
                   <div className='wingspan-control'>
@@ -413,12 +413,13 @@ Controls.propTypes = {
   onHandrailFilesLoad: PropTypes.func.isRequired,
   onStrFilesLoad: PropTypes.func.isRequired,
   onStartEndHandrailsChange: PropTypes.func.isRequired,
-  onSecondStartEndHandrailsChange: PropTypes.func.isRequired,
+  //onSecondStartEndHandrailsChange: PropTypes.func.isRequired,
   startHandrail: PropTypes.string,							// PHASE 3 MOD Lincoln Powell/lpowell25@student.umuc.edu 8/3/2018 Changed startHandrail PropType from object to string
   startHandrailSecond: PropTypes.string,
   endHandrail: PropTypes.string,							// PHASE 3 MOD Lincoln Powell/lpowell25@student.umuc.edu 8/3/2018 Changed endHandrail PropType from object to string
   endHandrailSecond: PropTypes.string,
   routes: PropTypes.array.isRequired,
+  routesSecond: PropTypes.array.isRequired,
   visibleRoutes: PropTypes.array.isRequired,
   visibleRoutesSecond: PropTypes.array.isRequired,
   onReset: PropTypes.func.isRequired,
