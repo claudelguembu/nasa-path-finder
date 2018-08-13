@@ -113,7 +113,7 @@ See the [Phase 2 repo](https://github.com/xpaddict/nasa-path-finder).
 ### Phase 3 - Summer 2018 Semester
 For Phase 3 clone of darenwelsh/EVANav, please click here: [lincolnpowell/nasa-path-finder](https://github.com/lincolnpowell/nasa-path-finder).
 
-This group accomplished the following feature requests:
+This group completed the following feature requests:
 * Add extra highlighting or some halo effect to make start and end points more obvious in 3D model
 * Allow users to click a handrail in the 3D model to select start and end points
 * Can the movement controls be improved to allow for 3-axis movement and 3-axis rotation?
