@@ -247,14 +247,14 @@ export default class Controls extends React.Component {
                       placeholder='Select start handrail...'
                       value={startHandrail}
                       options={this.createHandrailOptions()}
-                      onChange={option => onStartEndHandrailsChange('start', option)}
+                      onChange={option => onStartEndHandrailsChange('start', option, false, 1)}
                     />
                     <Select
                       name='endHandrail'
                       placeholder='Select end handrail...'
                       value={endHandrail}
                       options={this.createHandrailOptions()}
-                      onChange={option => onStartEndHandrailsChange('end', option)}
+                      onChange={option => onStartEndHandrailsChange('end', option, false, 1)}
                     />
                   </div>
                   <div className='wingspan-control'>
@@ -300,14 +300,14 @@ export default class Controls extends React.Component {
                       placeholder='Select start handrail...'
                       value={startHandrailSecond}
                       options={this.createHandrailOptions()}
-                      onChange={option => onStartEndHandrailsChange('start', option)}
+                      onChange={option => onStartEndHandrailsChange('start', option, false, 2)}
                     />
                     <Select
                       name='endHandrail'
                       placeholder='Select end handrail...'
                       value={endHandrailSecond}
                       options={this.createHandrailOptions()}
-                      onChange={option => onStartEndHandrailsChange('end', option)}
+                      onChange={option => onStartEndHandrailsChange('end', option, false, 2)}
                     />
                   </div>
                   <div className='wingspan-control'>
