@@ -66,7 +66,7 @@ export default class Container extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSecondSubmit = this.handleSecondSubmit.bind(this);
     this.handleStartEndHandrailsChanged = this.handleStartEndHandrailsChanged.bind(this);
-   // this.handleSecondStartEndHandrailsChanged = this.handleSecondStartEndHandrailsChanged.bind(this);
+    // this.handleSecondStartEndHandrailsChanged = this.handleSecondStartEndHandrailsChanged.bind(this);
     this.handleVisibleRouteChanges = this.handleVisibleRouteChanges.bind(this);
     this.handleSecondVisibleRouteChanges = this.handleSecondVisibleRouteChanges.bind(this);
     this.switchCrewView = this.switchCrewView.bind(this);
@@ -274,7 +274,7 @@ export default class Container extends React.Component {
                 onHandrailFilesLoad={this.handleHandrailFilesLoad}
                 onStrFilesLoad={this.handleStrFilesLoad}
                 onStartEndHandrailsChange={this.handleStartEndHandrailsChanged}
-               // onSecondStartEndHandrailsChange={this.handleSecondStartEndHandrailsChanged}
+                // onSecondStartEndHandrailsChange={this.handleSecondStartEndHandrailsChanged}
                 onSubmit={this.handleSubmit}
                 onSecondSumbit={this.handleSecondSubmit}
                 startHandrail={startHandrail}
@@ -299,12 +299,12 @@ export default class Container extends React.Component {
                 <div>
                   <h1 className='results-header'>Route Results</h1>
                   <div className='results'>
-                  <table>
-                    <tbody>
-                      <tr>
-                        <td className='td-crew1-results'>
-                          <div className='crew1-results'>
-                            <h3 className='crew1-results-header'>1. Crew 1 Route Results</h3>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td className='td-crew1-results'>
+                            <div className='crew1-results'>
+                              <h3 className='crew1-results-header'>1. Crew 1 Route Results</h3>
                               {routes.map((route, routeI) =>
                                 <div key={routeI}>
                                   <div>Route {routeI + 1}</div>
@@ -376,7 +376,7 @@ export default class Container extends React.Component {
             endHandrailSecond={endHandrailSecond}
             crewMemberSelected={this.state.crewOne ? 1 : 2}
             routes={routes.filter(r => visibleRoutes.includes(r.value)).reverse()}
-            routesSecond={routesSecond.filter(r => visibleRoutesSecond.includes(r.value)).reverse()}      
+            routesSecond={routesSecond.filter(r => visibleRoutesSecond.includes(r.value)).reverse()}
             wingspan={wingspan}
             wingspanSecond={wingspanSecond}
 

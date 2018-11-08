@@ -17,7 +17,9 @@
 package com.nasa;
 
 /**
- * Project: NASA Path in conjunction with University of Maryland University College
+ * Project: NASA Path in conjunction with University of Maryland University
+ * College
+ * 
  * @author jadovan
  */
 public class Node {
@@ -43,7 +45,8 @@ public class Node {
 		parent_node_name = "parentNode";
 	}
 
-	protected Node(String unique_node_name, String geometry_file_name, double x, double y, double z, double pitch, double yaw, double roll, String parent_node_name) {
+	protected Node(String unique_node_name, String geometry_file_name, double x, double y, double z, double pitch,
+			double yaw, double roll, String parent_node_name) {
 		this.unique_node_name = unique_node_name;
 		this.geometry_file_name = geometry_file_name;
 		this.x = x;
@@ -151,6 +154,9 @@ public class Node {
 
 	@Override
 	public String toString() {
-		return "unique_node_name: " + unique_node_name + "\r\ngeometry_file_name: " + geometry_file_name + "\r\nx: " + String.valueOf(x) + " y: " + String.valueOf(y) + " z: " + String.valueOf(z) + "\r\npitch: " + String.valueOf(pitch) + " yaw: " + String.valueOf(yaw) + " roll: " + String.valueOf(roll) + "\r\nparent_node_name: " + parent_node_name + "\r\n";
+		return "unique_node_name: " + unique_node_name + "\r\ngeometry_file_name: " + geometry_file_name + "\r\nx: "
+				+ String.valueOf(x) + " y: " + String.valueOf(y) + " z: " + String.valueOf(z) + "\r\npitch: "
+				+ String.valueOf(pitch) + " yaw: " + String.valueOf(yaw) + " roll: " + String.valueOf(roll)
+				+ "\r\nparent_node_name: " + parent_node_name + "\r\n";
 	}
 }

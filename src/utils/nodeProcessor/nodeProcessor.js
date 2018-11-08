@@ -13,7 +13,7 @@ const defaultMaterialOptions = {
   color: '#B0C4DE',
 };
 
-const loadMeshFromFile = (file, materialOptions = {}, extraOptions = {scale: 1}) => {
+const loadMeshFromFile = (file, materialOptions = {}, extraOptions = { scale: 1 }) => {
   const loader = new THREE.STLLoader();
   const geometry = loader.parse(file);
   // center it to the bounding box

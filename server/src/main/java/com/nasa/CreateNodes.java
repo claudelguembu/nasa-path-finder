@@ -111,7 +111,7 @@ public class CreateNodes extends Node {
 
 	}
 
-	public List getS0LabHandHoldNodeList() {
+	public List<Node> getS0LabHandHoldNodeList() {
 		return s0LabHandHoldNodeList;
 	}
 
