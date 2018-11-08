@@ -182,8 +182,9 @@ export default class Container extends React.Component {
         startHandrail: data.startHandrail ? data.startHandrail : "",				// PHASE 3 MOD Lincoln Powell/lpowell25@student.umuc.edu 8/3/2018 Removed .value attribute call from ternary true condition, data.startHandrail; changed ternary false condition, null, to empty string
         endHandrail: data.endHandrail ? data.endHandrail : "",						// PHASE 3 MOD Lincoln Powell/lpowell25@student.umuc.edu 8/3/2018 Removed .value attribute call from ternary true condition, data.endHandrail; changed ternary false condition, null, to empty string
         nodes: this.handrails,
-        wingspan: data.wingspan.toString(),
-        previousRoutes: this.state.routes //passing previous routes
+        wingspan: data.wingspan.toString()
+        //commenting out because RouteRequest doesnt have this property therefore deserialization failed later
+        //previousRoutes: this.state.routes //passing previous routes
       })
     })
       .then(resp => resp.json())
@@ -213,8 +214,9 @@ export default class Container extends React.Component {
         startHandrail: data.startHandrailSecond ? data.startHandrailSecond : "",
         endHandrail: data.endHandrailSecond ? data.endHandrailSecond : "",
         nodes: this.handrails,
-        wingspan: data.wingspanSecond.toString(),
-        previousRoutes: this.state.routesSecond //passing previous routes
+        wingspan: data.wingspanSecond.toString()
+        //commenting out because RouteRequest doesnt have this property therefore deserialization failed later
+        //previousRoutes: this.state.routesSecond //passing previous routes
       })
     })
       .then(resp => resp.json())
