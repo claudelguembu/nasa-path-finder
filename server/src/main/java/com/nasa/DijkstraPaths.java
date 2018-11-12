@@ -52,7 +52,7 @@ public class DijkstraPaths {
 	// This method processes the Dijkstra Algorithm for the three shortest paths
 	public void ExecutePaths(String source, String destination) {
 
-		cn.createS0LabHandHoldNodeList();
+		cn.createHandNodeList();
 
 		/*
 		 * ********************************************************************* The
@@ -138,7 +138,7 @@ public class DijkstraPaths {
 	private List<Node> pathNodes() {
 		nodes = new ArrayList<>();
 
-		cn.createS0LabHandHoldNodeList();
+		cn.createHandNodeList();
 
 		// These for loops add lanes to the s0 and lab nodes for the shortest paths
 		for (int i = 0; i < cn.nodeList.size(); i++) {
@@ -172,7 +172,7 @@ public class DijkstraPaths {
 	private List<Edge> pathOneEdges() {
 		edges = new ArrayList<>();
 
-		cn.createS0LabHandHoldNodeList();
+		cn.createHandNodeList();
 
 		for (int j = 0; j < cn.nodeList.size(); j++) {
 			for (int k = 0; k < cn.nodeList.size(); k++) {
@@ -193,7 +193,7 @@ public class DijkstraPaths {
 	private List<Edge> pathTwoEdges() {
 		edges = new ArrayList<>();
 
-		cn.createS0LabHandHoldNodeList();
+		cn.createHandNodeList();
 		int size = cn.nodeList.size();
 
 		for (int j = 0; j < size; j++) {
@@ -215,7 +215,7 @@ public class DijkstraPaths {
 	private List<Edge> pathThreeEdges() {
 		edges = new ArrayList<>();
 
-		cn.createS0LabHandHoldNodeList();
+		cn.createHandNodeList();
 		int size = cn.nodeList.size();
 
 		for (int j = 0; j < size; j++) {

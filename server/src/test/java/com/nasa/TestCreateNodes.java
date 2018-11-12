@@ -32,7 +32,7 @@ public class TestCreateNodes {
     ************************************************************************ */
     public static void main(String[] args) throws FileNotFoundException {
         CreateNodes cn = new CreateNodes();
-        cn.createS0LabHandHoldNodeList();
-        cn.createS0LabHandHoldNodeListDistances();
+        cn.createHandNodeList();
+        cn.createHandNodeListDistances();
     }
 }

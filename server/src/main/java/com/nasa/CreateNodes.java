@@ -37,8 +37,7 @@ public class CreateNodes extends Node {
     /**
      * The following locations take the current system location to determine the
      * correct application directory.
-     * TODO: make sure user.dir has the same behavior on Mac OS
-     * TODO: update bellow function name 
+     * TODO: make sure user.dir has the same behavior on Mac OS 
      */
     String homeDir = System.getProperty("user.dir");
     private final String ENTIRE_ISS = homeDir + "\\server\\src\\main\\resources\\Entire_ISS.txt";    
@@ -60,7 +59,7 @@ public class CreateNodes extends Node {
 
     private FileWriter fw = null;
 
-    public void createS0LabHandHoldNodeList() {
+    public void createHandNodeList() {
 
         try {
             Scanner inputFile1 = new Scanner(file);
@@ -107,11 +106,11 @@ public class CreateNodes extends Node {
 
     }
 
-    public List<Node> getS0LabHandHoldNodeList() {
+    public List<Node> getNodeList() {
         return nodeList;
     }
 
-    public void createS0LabHandHoldNodeListDistances() {
+    public void createHandNodeListDistances() {
 
         try {
 
