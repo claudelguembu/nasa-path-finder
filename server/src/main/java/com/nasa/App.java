@@ -111,16 +111,16 @@ public class App extends NanoHTTPD {
 		String resultListsString = "";
 
 		logger.info("Running algorithm...");
-
+		
 		// Apply Dijkstra's algorithm to calculate shortest path
-		for (int i = 0; i < rr.getWingspanThresholds().length; i++) {
+		for (int i = 0; i < rr.getThresholdSize(); i++) {
 			List<Node> nodes = new ArrayList<Node>();
 			ArrayList<String> nodeIds = new ArrayList<String>();
 
 			// Pull list of shortest path nodes, throw exception for any calculation errors
 			try {
 				nodes = dp.getShortestPath(rr.getStartHandrail(), rr.getEndHandrail(), rr.getNodes(),
-						rr.getWingspanThresholds()[i]);
+						rr.getWingspanThresholds(i));
 			} catch (Exception e) {
 				logger.error("There was an error running the algorithm", e);
 			}
@@ -133,6 +133,8 @@ public class App extends NanoHTTPD {
 			// console
 			if (nodes == null) {
 				logger.warn("There is no path");
+				//TODO: find a clean way to stop the process here since subsequent threshold will also 
+				// return no path
 			} else {
 				logger.info("Route " + (i + 1));
 				Node nodeLast = null;
@@ -179,7 +181,7 @@ public class App extends NanoHTTPD {
 			resultListsString += "{\"distancetotal\":" + distancetotal + ",\"nodes\":" + gson.toJson(nodeIds) + "}";
 
 			// Add delimiter for each but last
-			if (i != rr.getWingspanThresholds().length - 1) {
+			if (i != rr.getThresholdSize() - 1) {
 				resultListsString += ", ";
 			}
 		}

@@ -50,7 +50,7 @@ export default class Controls extends React.Component {
     this.setState({
       stationFile: {
         name: fileName,
-        size: 35000000
+        size: 178422000
       },
       stationLoading: true,
       handrailLoading: false,
@@ -69,8 +69,7 @@ export default class Controls extends React.Component {
         .then(data => {
           handrailDataFiles[handrailFile] = data;
           handrailFiles.push({name: handrailFile});
-          //if (Object.keys(handrailDataFiles).length == demoHandrailFiles.length) {
-          if (Object.keys(handrailDataFiles).length > 0) {
+          if (Object.keys(handrailDataFiles).length == demoHandrailFiles.length) {
             onHandrailFilesLoad(handrailDataFiles);
             this.setState({
               handrailLoading: false,

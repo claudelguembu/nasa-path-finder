@@ -59,9 +59,14 @@ public class CreateNodes extends Node {
 
     private FileWriter fw = null;
 
+    public CreateNodes() {
+		createHandNodeList();
+    }
+    
+    /**Create a list of node off the str file {@value this.ENTIRE_ISS}*/
     public void createHandNodeList() {
 
-        try {
+        try {   
             Scanner inputFile1 = new Scanner(file);
 
             fw = new FileWriter(ENTIRE_ISS);
