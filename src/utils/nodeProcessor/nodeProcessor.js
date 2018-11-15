@@ -48,7 +48,7 @@ const positionModelsBasedOnStrFile = (modelsMap, file) => {
     if (model) {
       const [x, y, z] = allLines[i + 2].split(' ').map(pos => parseInt(pos) * MMETER_PER_INCH);
       // adjust model position to fit the main model, this is probably from rounding
-      model.position.set(x - 0.15, y - 0.05, z - 0.25)
+      model.position.set(x + 1, y - 0.075, z - 0.025)
     }
   }
 };
