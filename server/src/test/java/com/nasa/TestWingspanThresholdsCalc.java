@@ -18,7 +18,6 @@ package com.nasa;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
 
 /**
  * Project: NASA Path in conjunction with University of Maryland University
@@ -33,21 +32,18 @@ public class TestWingspanThresholdsCalc {
         RouteRequest rr = new RouteRequest("", "", new ArrayList<Node>(), "");
 
         // Allow input of wingspan value
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter wingspan: ");
-        String wingspan = input.nextLine();
-        System.out.println();
-        input.close();
+        String wingspan = "4";
+
         // Set the wingspan
         rr.setWingspan(wingspan);
 
         // Print the thresholds using the wingspan value that will be used for the
         // shortest path calculation
-        Double[] thresholds = rr.getWingspanThresholds();
+        Double[] thresholds = {rr.getWingspanThresholds(0),rr.getWingspanThresholds(1),rr.getWingspanThresholds(2)};
 
         // Calculate the correct thresholds
         Double wingspanInches = Double.parseDouble(wingspan) * 12.0;
-        Double[] correctThresholds = { wingspanInches, (wingspanInches + 8.0), (wingspanInches + 16.0) };
+        Double[] correctThresholds = { wingspanInches, (wingspanInches - 4.0), (wingspanInches - 8.0) };
 
         // Check if the calculated thresholds are correct
         if (Arrays.equals(thresholds, correctThresholds)) {
