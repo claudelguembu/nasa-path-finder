@@ -62,6 +62,7 @@ export default class Container extends React.Component {
     this.handleStationFileLoad = this.handleStationFileLoad.bind(this);
     this.handleHandrailFilesLoad = this.handleHandrailFilesLoad.bind(this);
     this.handleStrFilesLoad = this.handleStrFilesLoad.bind(this);
+    this.handleInitialStrFilesLoad = this.handleInitialStrFilesLoad.bind(this);
     this.handleSidebarOpen = this.handleSidebarOpen.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSecondSubmit = this.handleSecondSubmit.bind(this);
@@ -134,6 +135,12 @@ export default class Container extends React.Component {
     strFiles.forEach(file =>
       this.handrails = this.handrails.concat(parseNodesFromStrFile(file))
     );
+    this.setState({ strFiles });
+  }
+
+  // method to upload ONLY initial str file
+  handleInitialStrFilesLoad(strFiles, nodes) {
+    this.handrails = this.handrails.concat(nodes);
     this.setState({ strFiles });
   }
 
@@ -275,6 +282,7 @@ export default class Container extends React.Component {
                 onStationFileLoad={this.handleStationFileLoad}
                 onHandrailFilesLoad={this.handleHandrailFilesLoad}
                 onStrFilesLoad={this.handleStrFilesLoad}
+                onInitialStrFilesLoad={this.handleInitialStrFilesLoad}
                 onStartEndHandrailsChange={this.handleStartEndHandrailsChanged}
                 // onSecondStartEndHandrailsChange={this.handleSecondStartEndHandrailsChanged}
                 onSubmit={this.handleSubmit}
