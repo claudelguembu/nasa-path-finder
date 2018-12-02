@@ -52,16 +52,7 @@ main {
       cursor: pointer;
     }
   }
-  .file-controls {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-  }
-  .handrails-selector {
-    .Select:first-of-type {
-      margin-bottom: 1em;
-    }
-    margin-bottom: 1em;
+   margin-bottom: 1em;
   }
 }
 
