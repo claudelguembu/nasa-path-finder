@@ -59,12 +59,12 @@ export default class Controls extends React.Component {
       .then(data => {
         onStationFileLoad(data);
         this.setState({stationLoading: false, });
-      });
+      }); 
  
     fetch('./models/Handrails/Entire_ISS.str')
     .then(response => response.text())
     .then(data => { 
-      strFiles.push(data);
+      strFiles.push(data); 
       
       strFiles.forEach(strData =>{
         this.nodes = this.nodes.concat(parseNodesFromStrFile(strData));        
@@ -298,13 +298,13 @@ export default class Controls extends React.Component {
                     <button className='button-primary' onClick={this.submit}>Go</button>
                     <button className='button-primary' onClick={onReset}>Reset</button>
                   </div>
-                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                </TabPanel>
-                <TabPanel>
+                <br /><br /><br /><br /><br /><br />
+								<div className='legend-title'> <b>How to Maneuver ISS</b> </div>
+								<div className=' legend-key1'> Rotate ISS<b>:</b> Hold left mouse button </div>
+								<div className=' legend-key2'> Pan ISS<b>:</b> Hold right mouse button </div>
+								<div className=' legend-key3'> Mouse wheel<b>:</b> Zoom ISS in/out </div>
+								</TabPanel>
+								<TabPanel>
                   <div className='handrails-selector'>
                     <Select
                       name='startHandrail'
@@ -351,11 +351,11 @@ export default class Controls extends React.Component {
                     <button className='button-primary' onClick={this.secondSubmit}>Go</button>
                     <button className='button-primary' onClick={onReset}>Reset</button>
                   </div>
-                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+               <br /><br /><br /><br /><br /><br />
+								<div className='legend-title'> <b>How to Maneuver ISS</b> </div>
+								<div className=' legend-key1'> Rotate ISS<b>:</b> Hold left mouse button </div>
+								<div className=' legend-key2'> Pan ISS<b>:</b> Hold right mouse button </div>
+								<div className=' legend-key3'> Mouse wheel<b>:</b> Zoom ISS in/out </div>
                 </TabPanel>
             </Tabs>
           </TabPanel> 
