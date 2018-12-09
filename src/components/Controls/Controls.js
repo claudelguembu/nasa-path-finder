@@ -24,6 +24,9 @@ export default class Controls extends React.Component {
       handrailError: '',
       handrailLoading: false,
       strFiles: [],
+      crewOneRoutes: [],
+      crewTwoRoutes: [],
+      canShowResult: false
     };
     this.handleStationFileDrop = this.handleStationFileDrop.bind(this);
     this.handleStationFileRejected = this.handleStationFileRejected.bind(this);
@@ -37,6 +40,28 @@ export default class Controls extends React.Component {
     this.nodes = [];
   }
   
+  onCrewOnePathLoaded(routes1, showResult){
+    this.setState({
+      crewOneRoutes: routes1,
+      canShowResult: showResult
+    });
+  }
+
+  onCrewTwoPathLoaded(routes2, showResult){
+    this.setState({
+      crewTwoRoutes: routes2,
+      canShowResult: showResult
+    });
+  }
+
+  onResetPathResult(){
+    this.setState({
+      crewOneRoutes: [],
+      crewTwoRoutes: [],
+      canShowResult: false
+    });
+  }
+
   componentDidMount() {
     const {onStationFileLoad, onHandrailFilesLoad, onInitialStrFilesLoad} = this.props;
     const fileName = './models/Handrails/stage_55-6_v12_nohandles_binary.stl';
@@ -219,6 +244,9 @@ export default class Controls extends React.Component {
       handrailError,
       handrailLoading,
       strFiles,
+      crewOneRoutes,
+      crewTwoRoutes,
+      canShowResult
     } = this.state;
     const {
       startHandrail,
@@ -300,9 +328,9 @@ export default class Controls extends React.Component {
                   </div>
                 <br /><br /><br /><br /><br /><br />
 								<div className='legend-title'> <b>How to Maneuver ISS</b> </div>
-								<div className=' legend-key1'> Rotate ISS<b>:</b> Hold left mouse button </div>
-								<div className=' legend-key2'> Pan ISS<b>:</b> Hold right mouse button </div>
-								<div className=' legend-key3'> Mouse wheel<b>:</b> Zoom ISS in/out </div>
+								<div className=' legend-key1'> <b>Rotate ISS:</b> Hold left mouse button </div>
+								<div className=' legend-key2'> <b>Pan ISS:</b> Hold right mouse button </div>
+								<div className=' legend-key3'> <b>Mouse wheel:</b> Zoom ISS in/out </div>
 								</TabPanel>
 								<TabPanel>
                   <div className='handrails-selector'>
@@ -353,9 +381,9 @@ export default class Controls extends React.Component {
                   </div>
                <br /><br /><br /><br /><br /><br />
 								<div className='legend-title'> <b>How to Maneuver ISS</b> </div>
-								<div className=' legend-key1'> Rotate ISS<b>:</b> Hold left mouse button </div>
-								<div className=' legend-key2'> Pan ISS<b>:</b> Hold right mouse button </div>
-								<div className=' legend-key3'> Mouse wheel<b>:</b> Zoom ISS in/out </div>
+								<div className=' legend-key1'> <b>Rotate ISS:</b> Hold left mouse button </div>
+								<div className=' legend-key2'> <b>Pan ISS:</b> Hold right mouse button </div>
+								<div className=' legend-key3'> <b>Mouse wheel:</b> Zoom ISS in/out </div>
                 </TabPanel>
             </Tabs>
           </TabPanel> 
@@ -404,14 +432,54 @@ export default class Controls extends React.Component {
                   )}
                 </Dropzone>
               </div>
-              <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-              <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-              <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-              <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-              <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
             </div>
           </TabPanel>
           <TabPanel>
+          {canShowResult &&
+          <div>
+            <h1 className='results-header'>Route Results</h1>
+            <div className='results'>
+              <table> 
+                <tbody>
+                  <tr>
+                    <td className='td-crew1-results'>
+                      <div className='crew1-results'>
+                        <h3 className='crew1-results-header'>1. Crew 1 Route Results</h3>
+                        {crewOneRoutes.map((route, routeI) =>
+                          <div key={routeI}>
+                            <div>Route {routeI + 1}</div>
+                            <div>Total distance: {route.distancetotal} inches</div>
+                            <ul>
+                              {route.nodes.map((node, nodeI) =>
+                                <li key={nodeI}>{node}</li>
+                              )}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </td>
+                    <td className='td-crew2-results'>
+                      <div className='crew2-results'>
+                        <h3 className='crew2-results-header'>2. Crew 2 Route Results</h3>
+                        {crewTwoRoutes.map((route, routeI) =>
+                          <div key={routeI}>
+                            <div>Route {routeI + 1}</div>
+                            <div>Total distance: {route.distancetotal} inches</div>
+                            <ul>
+                              {route.nodes.map((node, nodeI) =>
+                                <li key={nodeI}>{node}</li>
+                              )}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        }
           </TabPanel>
         </Tabs>
       </div>

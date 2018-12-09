@@ -34,6 +34,8 @@ export default class Container extends React.Component {
       { value: 3, color: '#8000FF', nodes: [] }, // purple		PHASE 3 MOD Lincoln Powell/lpowell25@student.umuc.edu 7/27/2018 Change route 3 color to purple
     ];
 
+    this.ControlsChild = React.createRef();
+
     // handle state changes
     this.state = {
       stationFile: null,
@@ -48,7 +50,6 @@ export default class Container extends React.Component {
       routesSecond: this.defaultRoutes,
       visibleRoutes: [1, 2, 3],
       visibleRoutesSecond: [1, 2, 3],
-      routesLoaded: false,
       wingspan: 4,
       wingspanSecond: 4,
       crewOne: true,
@@ -89,6 +90,7 @@ export default class Container extends React.Component {
       routes: this.defaultRoutes,
       routesSecond: this.defaultRoutes,
     });
+    this.ControlsChild.current.onResetPathResult();
   }
 
   switchCrewView(type) {
@@ -204,9 +206,9 @@ export default class Container extends React.Component {
         }));
         this.setState({
           ...data,
-          routes: resultRoutes,
-          routesLoaded: true
+          routes: resultRoutes
         });
+        this.ControlsChild.current.onCrewOnePathLoaded(resultRoutes, true);
       })
       .catch(e => console.error(e));
   }
@@ -237,8 +239,8 @@ export default class Container extends React.Component {
         this.setState({
           ...data,
           routesSecond: resultRoutes,
-          routesLoaded: true
         });
+        this.ControlsChild.current.onCrewTwoPathLoaded(resultRoutes, true);
       })
       .catch(e => console.error(e));
   }
@@ -257,7 +259,6 @@ export default class Container extends React.Component {
       routesSecond,
       visibleRoutes,
       visibleRoutesSecond,
-      routesLoaded,
       wingspan,
       wingspanSecond,
     } = this.state;
@@ -279,6 +280,7 @@ export default class Container extends React.Component {
           sidebar={
             <div className='sidebar-wrapper'>
               <Controls
+                ref = {this.ControlsChild}
                 onStationFileLoad={this.handleStationFileLoad}
                 onHandrailFilesLoad={this.handleHandrailFilesLoad}
                 onStrFilesLoad={this.handleStrFilesLoad}
@@ -305,51 +307,6 @@ export default class Container extends React.Component {
                 onSecondWingspanChange={this.handleSecondWingspanChange}
                 onCrewTabChange={this.switchCrewView}
               />
-              {routesLoaded &&
-                <div>
-                  <h1 className='results-header'>Route Results</h1>
-                  <div className='results'>
-                    <table>
-                      <tbody>
-                        <tr>
-                          <td className='td-crew1-results'>
-                            <div className='crew1-results'>
-                              <h3 className='crew1-results-header'>1. Crew 1 Route Results</h3>
-                              {routes.map((route, routeI) =>
-                                <div key={routeI}>
-                                  <div>Route {routeI + 1}</div>
-                                  <div>Total distance: {route.distancetotal} inches</div>
-                                  <ul>
-                                    {route.nodes.map((node, nodeI) =>
-                                      <li key={nodeI}>{node}</li>
-                                    )}
-                                  </ul>
-                                </div>
-                              )}
-                            </div>
-                          </td>
-                          <td className='td-crew2-results'>
-                            <div className='crew2-results'>
-                              <h3 className='crew2-results-header'>2. Crew 2 Route Results</h3>
-                              {routesSecond.map((route, routeI) =>
-                                <div key={routeI}>
-                                  <div>Route {routeI + 1}</div>
-                                  <div>Total distance: {route.distancetotal} inches</div>
-                                  <ul>
-                                    {route.nodes.map((node, nodeI) =>
-                                      <li key={nodeI}>{node}</li>
-                                    )}
-                                  </ul>
-                                </div>
-                              )}
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              }
               <div
                 className='sidebar-hide-button'
                 onClick={() => this.handleSidebarOpen(false)}
