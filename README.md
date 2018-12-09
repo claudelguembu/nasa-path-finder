@@ -72,21 +72,19 @@ Each node is represented with 5 consecutive lines of text in the file with the f
     <pitch> <yaw> <roll>
     <parent_node_name> or "NULL"
 
-## SAMPLE DATA
-* LAB_S0_geometry.stl     - Contains a text based data format of the geometry of the US Lab and S0 truss of the ISS
-* Handrails/
-  * LABHANDHOLDS/           - Contains Lab handrails as STL files
-  * LABHANDHOLDS.str        - Struct file containing xyz/PYR of each handrail on Lab
-  * S0HANDHOLDS/            - Contains S0 truss handrails as STL files
-  * S0HANDHOLDS.str         - Struct file containing xyz/PYR of each handrail on S0 truss
+## Public/models/Handrails
+* stage_55-6_v12_nohandles_binary.stl     - Contains a text based data format of the geometry of the entire ISS model without handles (converted in binary for efficiency)
+* Frames/                   - Contains all handrails listed in Entire_ISS.str as STL files
 
-The .str files contain the location and orientation information for each handrail, saved with 5 lines.
+* Entire_ISS.str file contains the location and orientation information for each handrail, saved with 5 lines.
+  * NodeName
+  * Modelname
+  * x y z
+  * pitch yaw roll
+  * ParentNode
 
-* NodeName
-* Modelname
-* x y z
-* pitch yaw roll
-* ParentNode
+## SAMPLE_DATA
+ISS_handle_location.str     - Contains raw data as we received
 
 ## RELATED WORK
 See [ISSMaps](https://github.com/darenwelsh/ISSMaps), my first attempt at this. I didn't get very far, but it may be helpful.
@@ -123,13 +121,28 @@ This group completed the following feature requests:
 Here is a screenshot of the front-end as of summer 2018 Milestone 4:
 ![Phase 3 Demo](images/phase3demo.png)
 
+### Phase 4 - FALL 2018 Semester
+For Phase 4 clone of darenwelsh/EVANav, please click here: [claudelguembu/nasa-path-finder](https://github.com/claudelguembu/nasa-path-finder).
+
+This group completed the following:
+* Update model to include all of ISS and its handrails
+* Provide a legend on how to manoeuver the ISS model
+* Altered ISS model brightness
+* Fixed wingspan value on the result path and log file.
+* Properly fixed Path result showing up in Control (old solution was using < br/>)
+* Improved running time when determining path.
+* Automatically load ISS model and handrails (off the str file) on load
+
+Here is a screenshot of the front-end as of Phase 4:
+![Phase 4 Demo](images/Phase4Demo.png)
+
 ### Forward work
 Reference [open issues](https://github.com/darenwelsh/EVANav/issues) for bugs and feature requests that might not be listed below.
 
 Here is a non-exhaustive list of remaining work:
 1. Verify basic functionality (**Note**: _This is a reoccuring item required for all project teams_)
-1. Update model to include all of ISS (data is provided in [0.2.0 release](https://github.com/darenwelsh/EVANav/releases/tag/0.2.0))
-1. Provide a legend/key on how to maneuver ISS
+1. ~Update model to include all of ISS (data is provided in [0.2.0 release](https://github.com/darenwelsh/EVANav/releases/tag/0.2.0))~
+1. ~Provide a legend/key on how to maneuver ISS~
 1. ~Can the movement controls be improved to allow for 3-axis movement and 3-axis rotation?~
 1. ~Add extra highlighting or some halo effect to make start and end points more obvious in 3d model~
 1. ~Use the wingspan slider input to effect the potential paths calculated~
