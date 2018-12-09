@@ -134,7 +134,7 @@ This group completed the following:
 * Automatically load ISS model and handrails (off the str file) on load
 
 Here is a screenshot of the front-end as of Phase 4:
-![Phase 4 Demo](images/Phase4Demo.png)
+![Phase 4 Demo](images/Phase4Demo.PNG)
 
 ### Forward work
 Reference [open issues](https://github.com/darenwelsh/EVANav/issues) for bugs and feature requests that might not be listed below.
