@@ -1,3 +1,58 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d89f3a22a979c6c33011905f9a8e79a61fef1a2c3cae8701a9da1d9537ee04d4
-size 1683
+solid stl file generated from DOUG
+ facet normal 1.000000 0.000000 -0.000000
+  outer loop
+   vertex -79.807182 171.547104 200.998245
+   vertex -79.807182 173.147110 200.998245
+   vertex -79.807182 173.147110 209.554932
+  endloop
+ endfacet
+ facet normal -0.000000 1.000000 -0.000000
+  outer loop
+   vertex -79.807182 173.147110 209.554932
+   vertex -79.807182 173.147110 200.998245
+   vertex -80.557182 173.147110 200.998245
+  endloop
+ endfacet
+ facet normal -0.000000 1.000000 0.000000
+  outer loop
+   vertex -80.557182 173.147110 200.998245
+   vertex -80.557182 173.147110 209.554932
+   vertex -79.807182 173.147110 209.554932
+  endloop
+ endfacet
+ facet normal -1.000000 -0.000000 -0.000000
+  outer loop
+   vertex -80.557182 171.547104 209.554932
+   vertex -80.557182 173.147110 209.554932
+   vertex -80.557182 173.147110 200.998245
+  endloop
+ endfacet
+ facet normal -1.000000 0.000000 0.000000
+  outer loop
+   vertex -80.557182 173.147110 200.998245
+   vertex -80.557182 171.547104 200.998245
+   vertex -80.557182 171.547104 209.554932
+  endloop
+ endfacet
+ facet normal -0.000000 -1.000000 -0.000000
+  outer loop
+   vertex -80.557182 171.547104 209.554932
+   vertex -80.557182 171.547104 200.998245
+   vertex -79.807182 171.547104 200.998245
+  endloop
+ endfacet
+ facet normal -0.000000 -1.000000 -0.000000
+  outer loop
+   vertex -79.807182 171.547104 200.998245
+   vertex -79.807182 171.547104 209.554932
+   vertex -80.557182 171.547104 209.554932
+  endloop
+ endfacet
+ facet normal 1.000000 -0.000000 -0.000000
+  outer loop
+   vertex -79.807182 173.147110 209.554932
+   vertex -79.807182 171.547104 209.554932
+   vertex -79.807182 171.547104 200.998245
+  endloop
+ endfacet
+endsolid

@@ -1,3 +1,30 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:ee9de039d10373d70ee312fecab4580b0a89f14ccae137d4d862ce080f03143d
-size 867
+solid stl file generated from DOUG
+ facet normal 0.064790 -0.495926 0.865945
+  outer loop
+   vertex -108.829926 -59.446838 252.974197
+   vertex -77.647743 -62.539677 248.869873
+   vertex -108.606194 -58.152596 253.698669
+  endloop
+ endfacet
+ facet normal 0.064789 -0.495933 0.865941
+  outer loop
+   vertex -108.606194 -58.152596 253.698669
+   vertex -77.647743 -62.539677 248.869873
+   vertex -77.424019 -61.245434 249.594360
+  endloop
+ endfacet
+ facet normal -0.064789 0.495933 -0.865940
+  outer loop
+   vertex -108.606842 -58.147636 253.690018
+   vertex -77.424660 -61.240475 249.585693
+   vertex -108.830574 -59.441879 252.965530
+  endloop
+ endfacet
+ facet normal -0.064790 0.495926 -0.865945
+  outer loop
+   vertex -108.830574 -59.441879 252.965530
+   vertex -77.424660 -61.240475 249.585693
+   vertex -77.648392 -62.534718 248.861221
+  endloop
+ endfacet
+endsolid

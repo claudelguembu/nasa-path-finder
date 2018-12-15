@@ -1,3 +1,72 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:02d2f7b88a3c1de4961d39ef1ddd9222a0633430fcbbed5676c04c3a40bf45ea
-size 2118
+solid stl file generated from DOUG
+ facet normal -0.056693 -0.998392 0.000000
+  outer loop
+   vertex -510.718018 -39.770340 307.962921
+   vertex -510.718018 -39.770340 306.962921
+   vertex -488.747070 -41.017941 306.962921
+  endloop
+ endfacet
+ facet normal -0.000000 -0.000000 -1.000000
+  outer loop
+   vertex -488.747070 -41.017941 306.962921
+   vertex -510.718018 -39.770340 306.962921
+   vertex -488.718964 -40.017929 306.962921
+  endloop
+ endfacet
+ facet normal 0.000000 -0.000000 -1.000000
+  outer loop
+   vertex -510.718018 -39.770340 306.962921
+   vertex -510.661316 -38.771950 306.962921
+   vertex -488.718964 -40.017929 306.962921
+  endloop
+ endfacet
+ facet normal 0.056693 0.998392 -0.000000
+  outer loop
+   vertex -488.718964 -40.017929 306.962921
+   vertex -510.661316 -38.771950 306.962921
+   vertex -510.661316 -38.771950 307.962921
+  endloop
+ endfacet
+ facet normal 0.056693 0.998392 0.000000
+  outer loop
+   vertex -510.661316 -38.771950 307.962921
+   vertex -488.718964 -40.017929 307.962921
+   vertex -488.718964 -40.017929 306.962921
+  endloop
+ endfacet
+ facet normal -0.000000 -0.000000 1.000000
+  outer loop
+   vertex -510.718018 -39.770340 307.962921
+   vertex -488.718964 -40.017929 307.962921
+   vertex -510.661316 -38.771950 307.962921
+  endloop
+ endfacet
+ facet normal 0.000000 0.000000 1.000000
+  outer loop
+   vertex -488.747070 -41.017941 307.962921
+   vertex -488.718964 -40.017929 307.962921
+   vertex -510.718018 -39.770340 307.962921
+  endloop
+ endfacet
+ facet normal -0.056693 -0.998392 0.000000
+  outer loop
+   vertex -510.718018 -39.770340 307.962921
+   vertex -488.747070 -41.017941 306.962921
+   vertex -488.747070 -41.017941 307.962921
+  endloop
+ endfacet
+ facet normal 0.999605 -0.028095 0.000000
+  outer loop
+   vertex -488.747070 -41.017941 307.962921
+   vertex -488.747070 -41.017941 306.962921
+   vertex -488.718964 -40.017929 307.962921
+  endloop
+ endfacet
+ facet normal 0.999605 -0.028095 -0.000000
+  outer loop
+   vertex -488.718964 -40.017929 307.962921
+   vertex -488.747070 -41.017941 306.962921
+   vertex -488.718964 -40.017929 306.962921
+  endloop
+ endfacet
+endsolid
